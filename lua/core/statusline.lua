@@ -251,6 +251,17 @@ table.insert(components.active[2], comps.file.os)
 table.insert(components.active[2], comps.file.position)
 table.insert(components.active[2], comps.file.line_percentage)
 
+local navic = require("nvim-navic")
+
+table.insert(components.active[1], {
+    provider = function()
+        return navic.get_location()
+    end,
+    enabled = function()
+        return navic.is_available()
+    end
+})
+
 -- Call feline
 feline.setup {
   theme = {
@@ -272,3 +283,4 @@ feline.setup {
     bufnames = {},
   },
 }
+feline.winbar.setup()

@@ -47,6 +47,10 @@ return packer.startup(function(use)
   -- https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
+  -- quicker loading
+  -- https://github.com/lewis6991/impatient.nvim
+  use 'lewis6991/impatient.nvim'
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                           lsp                            │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -70,12 +74,21 @@ return packer.startup(function(use)
     end,
   }
 
+  -- show surrounding def & block
+  -- https://github.com/SmiteshP/nvim-navic
+  use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig"
+  }
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        UI                                │
 --  ╰──────────────────────────────────────────────────────────╯
-  -- Icons
+  -- Icons, fork of vim-devicons
+  -- https://github.com/kyazdani42/nvim-web-devicons
   use 'kyazdani42/nvim-web-devicons'
 
+  -- https://github.com/folke/which-key.nvim
   use {
   "folke/which-key.nvim",
   config = function()
@@ -87,11 +100,17 @@ return packer.startup(function(use)
     end
   }
 
+  -- replace input and select UI
+  -- https://github.com/stevearc/dressing.nvim
+  use 'stevearc/dressing.nvim'
+
   -- Tag viewer
   -- use ctags in sys
+  -- https://github.com/preservim/tagbar
   use 'preservim/tagbar'
 
   -- Statusline
+  -- https://github.com/feline-nvim/feline.nvim
   use {
     'feline-nvim/feline.nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
@@ -107,10 +126,32 @@ return packer.startup(function(use)
   }
 
   -- Dashboard (start screen)
+  -- https://github.com/goolord/alpha-nvim
   use {
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
   }
+
+  -- https://github.com/Xuyuanp/scrollbar.nvim
+  use {
+    'dstein64/nvim-scrollview',
+    config = function()
+      require("scrollview").setup({
+      excluded_filetypes = {'nerdtree'},
+      current_only = true,
+      winblend = 75,
+      base = 'buffer',
+      column = 80
+    }) end
+  }
+
+  -- manage window
+  -- https://gitlab.com/yorickpeterse/nvim-window.git
+  use "https://gitlab.com/yorickpeterse/nvim-window.git"
+
+  -- each active window is golden ratio
+  -- https://github.com/dm1try/golden_size
+  use 'dm1try/golden_size'
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
@@ -122,8 +163,26 @@ return packer.startup(function(use)
   -- https://github.com/LudoPinelli/comment-box.nvim
   use "LudoPinelli/comment-box.nvim"
 
-  -- Treesitter interface
+  -- Rainbow pairs
+  -- https://github.com/p00f/nvim-ts-rainbow
   use 'p00f/nvim-ts-rainbow'
+
+  -- trim empty lines
+  -- https://github.com/cappyzawa/trim.nvim
+  use {
+    'cappyzawa/trim.nvim',
+    config = function()
+      require('trim').setup({
+        disable = {'markdown'},
+        patterns = {
+          [[%s/\s\+$//e]],           -- remove unwanted spaces
+          [[%s/\($\n\s*\)\+\%$//]],  -- trim last line
+          [[%s/\%^\n\+//]],          -- trim first line
+          -- [[%s/\(\n\n\)\n\+/\1/]],   -- replace multiple blank lines with a single line
+        }
+      })
+    end
+  }
 
   use {
     'numToStr/Comment.nvim',
@@ -150,14 +209,20 @@ return packer.startup(function(use)
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          search                          │
 --  ╰──────────────────────────────────────────────────────────╯
+  -- search integrate with fzf and fd
+  -- https://github.com/nvim-telescope/telescope.nvim#pickers
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  -- https://github.com/axieax/urlview.nvim
+  use "axieax/urlview.nvim"
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          motion                          │
 --  ╰──────────────────────────────────────────────────────────╯
+  -- smooth scrolling
   -- https://github.com/karb94/neoscroll.nvim
   use {
     'karb94/neoscroll.nvim',
@@ -184,6 +249,7 @@ return packer.startup(function(use)
 --  ╰──────────────────────────────────────────────────────────╯
 
   -- File explorer
+  -- https://github.com/kevinhwang91/rnvimr
   use {
     'kevinhwang91/rnvimr',
     config = function()
@@ -191,8 +257,8 @@ return packer.startup(function(use)
       vim.g.rnvimr_enable_picker = true
     end
   }
+  -- https://github.com/kyazdani42/nvim-tree.lua
   use 'kyazdani42/nvim-tree.lua'
-
 
 
   -- Automatically set up your configuration after cloning packer.nvim

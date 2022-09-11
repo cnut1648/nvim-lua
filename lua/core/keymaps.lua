@@ -68,6 +68,7 @@ map('n', '<M-S-->', '<C-W>-')
 map('n', '<M-S-+>', '<C-W>+')
 map('n', '<M-S-<>', '<C-W><')
 map('n', '<M-S->>', '<C-W>>')
+map('n', '<M-S-=>', ":lua require('nvim-window').pick()<CR>")
 
 -- Map Esc to jk
 map('i', 'jk', '<Esc>')
