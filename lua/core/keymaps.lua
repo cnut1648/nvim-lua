@@ -102,6 +102,14 @@ map('n', '<leader>xr', ':w <bar> :so ' .. CONFIG_DIR .. 'init.lua<CR>')
 -- Close all windows and exit fromseovim with <leader> and q
 map('n', '<leader>q', ':qa!<CR>')
 
+--[[
+    easier moving of code blocks
+    Try to go into visual mode (v), thenselect several lines of code
+    here and then press ``>`` several times.
+--]]
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+
 -----------------------------------------------------------
 -----------------------------------------------------------
 -- ______ _             _
@@ -121,7 +129,7 @@ map('t', '<Esc>', '<C-\\><C-n>')                    -- exit
 
 -- NvimTree
 map('n', '<C-n>', ':NvimTreeToggle<CR>')            -- open/close
-map('n', '<leader>f', ':NvimTreeRefresh<CR>')       -- refresh
+-- map('n', '<leader>f', ':NvimTreeRefresh<CR>')       -- refresh
 map('n', '<leader>n', ':NvimTreeFindFile<CR>')      -- search file
 
 -- Tagbar
@@ -129,3 +137,9 @@ map('n', '<leader>z', ':TagbarToggle<CR>')          -- open/close
 
 -- Ranger
 map('n', '<leader>k', ':RnvimrToggle<CR>')
+
+-- Telescope https://github.com/nvim-telescope/telescope.nvim
+map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')

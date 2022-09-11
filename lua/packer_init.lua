@@ -43,56 +43,36 @@ end
 -- Install plugins
 return packer.startup(function(use)
   -- Add you plugins here:
+
+  -- https://github.com/wbthomason/packer.nvim
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
-  -- File explorer
-  use {
-    'kevinhwang91/rnvimr',
-    config = function()
-      vim.g.rnvimr_enable_ex = true
-      vim.g.rnvimr_enable_picker = true
-    end
-  }
-  use 'kyazdani42/nvim-tree.lua'
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                           lsp                            │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- LSP
+  use 'neovim/nvim-lspconfig'
 
-  -- Indent line
-  use 'lukas-reineke/indent-blankline.nvim'
-
+  -- Autocomplete
   use {
-    'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup({
-        -- All these keys will be mapped to their corresponding default scrolling animation
-        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-                    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-        hide_cursor = true,          -- Hide cursor while scrolling
-        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-        respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil,       -- Default easing function
-        pre_hook = nil,              -- Function to run before the scrolling animation starts
-        post_hook = nil,             -- Function to run after the scrolling animation ends
-        performance_mode = false,    -- Disable "Performance Mode" on all buffers.
-        easing_function = "quadratic" -- quadratic accleration
-      })
-    end
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'L3MON4D3/LuaSnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'saadparwaiz1/cmp_luasnip',
+    },
   }
 
   use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      require('nvim-treesitter.install').update({ with_sync = true })
+    end,
   }
 
-  -- Autopair
-  use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup{}
-    end
-  }
-
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                        UI                                │
+--  ╰──────────────────────────────────────────────────────────╯
   -- Icons
   use 'kyazdani42/nvim-web-devicons'
 
@@ -108,34 +88,8 @@ return packer.startup(function(use)
   }
 
   -- Tag viewer
+  -- use ctags in sys
   use 'preservim/tagbar'
-
-  -- Treesitter interface
-  use 'p00f/nvim-ts-rainbow'
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      require('nvim-treesitter.install').update({ with_sync = true })
-    end,
-  }
-
-  -- Color schemes
-  use 'navarasu/onedark.nvim'
-  use 'tanvirtin/monokai.nvim'
-  use { 'rose-pine/neovim', as = 'rose-pine' }
-
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-
-  -- Autocomplete
-  use {
-    'hrsh7th/nvim-cmp',
-    requires = {
-      'L3MON4D3/LuaSnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'saadparwaiz1/cmp_luasnip',
-    },
-  }
 
   -- Statusline
   use {
@@ -157,6 +111,89 @@ return packer.startup(function(use)
     'goolord/alpha-nvim',
     requires = { 'kyazdani42/nvim-web-devicons' },
   }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                        prettifier                        │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- show Indent line
+  -- https://github.com/lukas-reineke/indent-blankline.nvim
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  -- https://github.com/LudoPinelli/comment-box.nvim
+  use "LudoPinelli/comment-box.nvim"
+
+  -- Treesitter interface
+  use 'p00f/nvim-ts-rainbow'
+
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
+
+  -- Autopair
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup{}
+    end
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                       colorschema                        │
+--  ╰──────────────────────────────────────────────────────────╯
+  use 'navarasu/onedark.nvim'
+  use 'tanvirtin/monokai.nvim'
+  use { 'rose-pine/neovim', as = 'rose-pine' }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                          search                          │
+--  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                          motion                          │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- https://github.com/karb94/neoscroll.nvim
+  use {
+    'karb94/neoscroll.nvim',
+    config = function()
+      require('neoscroll').setup({
+        -- All these keys will be mapped to their corresponding default scrolling animation
+        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+                    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+        hide_cursor = true,          -- Hide cursor while scrolling
+        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+        respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+        easing_function = nil,       -- Default easing function
+        pre_hook = nil,              -- Function to run before the scrolling animation starts
+        post_hook = nil,             -- Function to run after the scrolling animation ends
+        performance_mode = false,    -- Disable "Performance Mode" on all buffers.
+        easing_function = "quadratic" -- quadratic accleration
+      })
+    end
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                          fm                              │
+--  ╰──────────────────────────────────────────────────────────╯
+
+  -- File explorer
+  use {
+    'kevinhwang91/rnvimr',
+    config = function()
+      vim.g.rnvimr_enable_ex = true
+      vim.g.rnvimr_enable_picker = true
+    end
+  }
+  use 'kyazdani42/nvim-tree.lua'
+
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
