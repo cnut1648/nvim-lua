@@ -46,11 +46,44 @@ return packer.startup(function(use)
   use 'wbthomason/packer.nvim' -- packer can manage itself
 
   -- File explorer
-  use 'kevinhwang91/rnvimr'
+  use {
+    'kevinhwang91/rnvimr',
+    config = function()
+      vim.g.rnvimr_enable_ex = true
+      vim.g.rnvimr_enable_picker = true
+    end
+  }
   use 'kyazdani42/nvim-tree.lua'
 
   -- Indent line
-  -- use 'lukas-reineke/indent-blankline.nvim'
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  use {
+    'karb94/neoscroll.nvim',
+    config = function()
+      require('neoscroll').setup({
+        -- All these keys will be mapped to their corresponding default scrolling animation
+        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+                    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+        hide_cursor = true,          -- Hide cursor while scrolling
+        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+        respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+        easing_function = nil,       -- Default easing function
+        pre_hook = nil,              -- Function to run before the scrolling animation starts
+        post_hook = nil,             -- Function to run after the scrolling animation ends
+        performance_mode = false,    -- Disable "Performance Mode" on all buffers.
+        easing_function = "quadratic" -- quadratic accleration
+      })
+    end
+  }
+
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
 
   -- Autopair
   use {
@@ -63,13 +96,27 @@ return packer.startup(function(use)
   -- Icons
   use 'kyazdani42/nvim-web-devicons'
 
+  use {
+  "folke/which-key.nvim",
+  config = function()
+    require("which-key").setup({
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    })
+    end
+  }
+
   -- Tag viewer
   use 'preservim/tagbar'
 
   -- Treesitter interface
+  use 'p00f/nvim-ts-rainbow'
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    run = function()
+      require('nvim-treesitter.install').update({ with_sync = true })
+    end,
   }
 
   -- Color schemes

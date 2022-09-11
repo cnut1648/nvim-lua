@@ -33,6 +33,19 @@ map('', '<left>', '<nop>')
 map('', '<right>', '<nop>')
 
 ----------------------------------------------
+-- tab management
+----------------------------------------------
+map('n', '<C-p>', ':tabnew<CR>') -- new tab
+map('n', '<C-h>', ':tabprevious<CR>') -- last tab
+map('n', '<C-l>', ':tabnext<CR>') -- next tab
+
+----------------------------------------------
+-- buffer/file management
+----------------------------------------------
+map('n', '<C-j>', ':bprevious<CR>') -- last file
+map('n', '<C-k>', ':bnext<CR>') -- next file
+
+----------------------------------------------
 -- window management
 -- M-S  => alt+shift
 ----------------------------------------------
@@ -69,12 +82,6 @@ vim.opt.pastetoggle = '<F2>'
 -- Change split orientation
 map('n', '<leader>tk', '<C-w>t<C-w>K') -- change vertical to horizontal
 map('n', '<leader>th', '<C-w>t<C-w>H') -- change horizontal to vertical
-
--- Move around splits using Ctrl + {h,j,k,l}
-map('n', '<C-h>', '<C-w>h')
-map('n', '<C-j>', '<C-w>j')
-map('n', '<C-k>', '<C-w>k')
-map('n', '<C-l>', '<C-w>l')
 
 -- Empty line inject
 map('n', 'oo', 'o')
@@ -119,3 +126,6 @@ map('n', '<leader>n', ':NvimTreeFindFile<CR>')      -- search file
 
 -- Tagbar
 map('n', '<leader>z', ':TagbarToggle<CR>')          -- open/close
+
+-- Ranger
+map('n', '<leader>k', ':RnvimrToggle<CR>')
