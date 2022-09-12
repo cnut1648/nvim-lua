@@ -195,7 +195,9 @@ return packer.startup(function(use)
   use {
     'windwp/nvim-autopairs',
     config = function()
-      require('nvim-autopairs').setup{}
+      require('nvim-autopairs').setup{
+        disable_filetype = { "TelescopePrompt" }
+      }
     end
   }
 
@@ -244,6 +246,22 @@ return packer.startup(function(use)
     end
   }
 
+  -- easy motion
+  -- https://github.com/phaazon/hop.nvim
+  use {
+    'phaazon/hop.nvim',
+    branch = 'v2', -- optional but strongly recommended
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup {
+        keys = 'etovxqpdygfblzhckisuran',
+        quit_key = '<ESC>',
+        jump_on_sole_occurrence = true, -- if only hint a single item, jump directly
+        case_insensitive = true
+      }
+    end
+  }
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          fm                              │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -260,6 +278,20 @@ return packer.startup(function(use)
   -- https://github.com/kyazdani42/nvim-tree.lua
   use 'kyazdani42/nvim-tree.lua'
 
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                          utils                           │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- use sudo
+  -- https://github.com/lambdalisue/suda.vim
+  use {
+    'lambdalisue/suda.vim',
+    config = function()
+      vim.g.suda_smart_edit = true
+      vim.api.nvim_set_keymap('c', 'w!!', ":w suda://%<CR>", { silent = true })
+    end
+  }
+
+  use 'tjdevries/train.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

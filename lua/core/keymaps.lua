@@ -144,3 +144,24 @@ map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+
+-- Hop https://github.com/phaazon/hop.nvim
+map('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>")
+map('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>")
+map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>")
+map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>")
+-- disable s
+map('', 's', '<NOP>')
+map('', 'S', '<NOP>')
+-- lowercase for this buffer
+-- uppercase for whole visible buffer
+map('', 'sw', "<cmd>:HopWord<CR>")
+map('', 'SW', "<cmd>:HopWordMW<CR>")
+map('', 'sb', "<cmd>:HopChar2<CR>")
+map('', 'SB', "<cmd>:HopChar2MW<CR>")
+map('', 'sp', "<cmd>:HopPattern<CR>")
+map('', 'SP', "<cmd>:HopPatternMW<CR>")
+map('', 'su', "<cmd>:HopVertical<CR>")
+map('', 'SU', "<cmd>:HopVerticalMW<CR>")
+map('', 'sl', "<cmd>:HopLineStart<CR>")
+map('', 'SL', "<cmd>:HopLineStartMW<CR>")

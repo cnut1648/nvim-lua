@@ -8,7 +8,12 @@ Check startup time with
 nvim --startuptime startup.log -c exit && tail -100 startup.log
 ```
 
+## Useful keybinds
+
 ## Useful commands
 
-- `Urlview` to search for urls in currrent buffer
+- `:Urlview` to search for urls in currrent buffer
 
+- `:w!!` overwrite permission protected files w/ sudo, powered by `suda.vim`
+
+- `:Train*` from [train](https://github.com/tjdevries/train.nvim) can be used to familiarize textobjects etc
