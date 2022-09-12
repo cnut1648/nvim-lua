@@ -14,6 +14,8 @@ nvim --startuptime startup.log -c exit && tail -100 startup.log
 
 - `:Urlview` to search for urls in currrent buffer
 
+- `:CB*box` to draw box by [Comment Box](https://github.com/LudoPinelli/comment-box.nvim)
+
 - `:w!!` overwrite permission protected files w/ sudo, powered by `suda.vim`
 
 - `:Train*` from [train](https://github.com/tjdevries/train.nvim) can be used to familiarize textobjects etc

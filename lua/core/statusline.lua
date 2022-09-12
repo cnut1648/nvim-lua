@@ -283,4 +283,8 @@ feline.setup {
     bufnames = {},
   },
 }
-feline.winbar.setup()
+-- not use feline's winbar but bufferline's
+-- feline.winbar.setup()
+
+-- enable visible scrollbar
+vim.cmd[[highlight ScrollView ctermbg=159 guibg=LightCyan]]

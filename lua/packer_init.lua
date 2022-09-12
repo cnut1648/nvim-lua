@@ -100,6 +100,24 @@ return packer.startup(function(use)
     end
   }
 
+  use 'skywind3000/vim-quickui'
+
+  -- buffer management
+  -- https://github.com/akinsho/bufferline.nvim
+  -- see :h bufferline-usage
+  use {
+    'akinsho/bufferline.nvim',
+    tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require("bufferline").setup{
+        options = {
+            -- pin tab
+            middle_mouse_command = ':BufferLineTogglePin'
+        }
+      }
+    end
+  }
+
   -- replace input and select UI
   -- https://github.com/stevearc/dressing.nvim
   use 'stevearc/dressing.nvim'
@@ -132,17 +150,13 @@ return packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons' },
   }
 
-  -- https://github.com/Xuyuanp/scrollbar.nvim
+  -- scroll bar w/ diagnostic
+  -- https://github.com/petertriho/nvim-scrollbar
   use {
-    'dstein64/nvim-scrollview',
+    "petertriho/nvim-scrollbar",
     config = function()
-      require("scrollview").setup({
-      excluded_filetypes = {'nerdtree'},
-      current_only = true,
-      winblend = 75,
-      base = 'buffer',
-      column = 80
-    }) end
+      require("scrollbar").setup{}
+    end
   }
 
   -- manage window
@@ -167,6 +181,9 @@ return packer.startup(function(use)
   -- https://github.com/p00f/nvim-ts-rainbow
   use 'p00f/nvim-ts-rainbow'
 
+  -- highlight all occurences of selection
+  use 'RRethy/vim-illuminate'
+
   -- trim empty lines
   -- https://github.com/cappyzawa/trim.nvim
   use {
@@ -184,6 +201,7 @@ return packer.startup(function(use)
     end
   }
 
+  -- https://github.com/numToStr/Comment.nvim
   use {
     'numToStr/Comment.nvim',
     config = function()
@@ -261,6 +279,10 @@ return packer.startup(function(use)
       }
     end
   }
+
+  -- better search highligh UI
+  -- https://github.com/kevinhwang91/nvim-hlslens
+  use {'kevinhwang91/nvim-hlslens'}
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          fm                              │

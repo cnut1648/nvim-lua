@@ -72,9 +72,13 @@ map('n', '<M-S-=>', ":lua require('nvim-window').pick()<CR>")
 
 -- Map Esc to jk
 map('i', 'jk', '<Esc>')
+-- going back to normal mode which works even in vim's terminal
+-- you will need this if you use floaterm to escape terminal
+map('t', '<Esc>', '<c-\\><c-n>')
 
--- Clear search highlighting with <leader> and c
-map('n', '<leader>c', ':nohl<CR>')
+-- Clear search highlighting
+map('n', '//', ':nohl<CR>')
+map('n', '??', ':nohl<CR>')
 
 -- Toggle auto-indenting for code paste
 map('n', '<F2>', ':set invpaste paste?<CR>')
@@ -91,8 +95,11 @@ map('n', 'o', 'o<Esc>k')
 map('n', 'O', 'O<Esc>j')
 
 -- Write & Reload configuration
+-- always <leader>x
 map('n', '<leader>xv', ':e ' .. CONFIG_DIR  .. 'init.lua<CR>')
 map('n', '<leader>xr', ':w <bar> :so ' .. CONFIG_DIR .. 'init.lua<CR>')
+map('n', '<leader>xo', ':set rnu! <CR>')
+
 
 -- Reload configuration without restart nvim
 
@@ -110,6 +117,10 @@ map('n', '<leader>q', ':qa!<CR>')
 --]]
 map('v', '<', '<gv')
 map('v', '>', '>gv')
+-- move selected line(s) up or down
+map('v', 'J', ":m '>+1<CR>gv=gv")
+map('v', 'K', ":m '<-2<CR>gv=gv")
+
 
 -----------------------------------------------------------
 -----------------------------------------------------------
@@ -139,6 +150,10 @@ map('n', '<leader>z', ':TagbarToggle<CR>')          -- open/close
 -- Ranger
 map('n', '<leader>k', ':RnvimrToggle<CR>')
 
+-- Comment https://github.com/numToStr/Comment.nvim
+-- IDE like comment
+map('n', '<C-/>', ":lua require('Comment.api').toggle.linewise.current()<CR>")
+
 -- Telescope https://github.com/nvim-telescope/telescope.nvim
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
@@ -146,13 +161,15 @@ map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
 map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
 
 -- Hop https://github.com/phaazon/hop.nvim
-map('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>")
-map('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>")
-map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>")
-map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>")
 -- disable s
 map('', 's', '<NOP>')
 map('', 'S', '<NOP>')
+-- did not override f/F/t/T due to dot repeat, eg df can't be repeated anymore
+-- lowercase forward; uppercase backward
+map('', 'sf', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>")
+map('', 'sF', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>")
+map('', 'st', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>")
+map('', 'sT', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>")
 -- lowercase for this buffer
 -- uppercase for whole visible buffer
 map('', 'sw', "<cmd>:HopWord<CR>")
@@ -165,3 +182,11 @@ map('', 'su', "<cmd>:HopVertical<CR>")
 map('', 'SU', "<cmd>:HopVerticalMW<CR>")
 map('', 'sl', "<cmd>:HopLineStart<CR>")
 map('', 'SL', "<cmd>:HopLineStartMW<CR>")
+
+-- hlslens https://github.com/kevinhwang91/nvim-hlslens
+map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]])
+map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]])
+map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]])
+map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]])
+map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
+map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
