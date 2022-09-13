@@ -91,7 +91,6 @@ return packer.startup(function(use)
   -- https://github.com/folke/which-key.nvim
   use {
     "folke/which-key.nvim",
-    module = 'which-key',
     config = function()
       require("which-key").setup({
         -- your configuration comes here
@@ -160,7 +159,7 @@ return packer.startup(function(use)
     end
   }
 
-  -- manage window
+  -- manage window by only one key
   -- https://gitlab.com/yorickpeterse/nvim-window.git
   use "https://gitlab.com/yorickpeterse/nvim-window.git"
 
@@ -192,7 +191,7 @@ return packer.startup(function(use)
   -- highlight all occurences of selection
   use 'RRethy/vim-illuminate'
 
-  -- trim empty lines
+  -- trim empty lines on save
   -- https://github.com/cappyzawa/trim.nvim
   use {
     'cappyzawa/trim.nvim',
@@ -208,7 +207,6 @@ return packer.startup(function(use)
       })
     end
   }
-
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                       colorschema                        │
@@ -276,6 +274,17 @@ return packer.startup(function(use)
   use {'kevinhwang91/nvim-hlslens'}
 
 --  ╭──────────────────────────────────────────────────────────╮
+--  │                          filetype                        │
+--  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'lervag/vimtex',
+  }
+
+  use {
+    "frabjous/knap"
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
 --  │                          fm                              │
 --  ╰──────────────────────────────────────────────────────────╯
 
@@ -290,13 +299,6 @@ return packer.startup(function(use)
   }
   -- https://github.com/kyazdani42/nvim-tree.lua
   use 'kyazdani42/nvim-tree.lua'
-
---  ╭──────────────────────────────────────────────────────────╮
---  │                          filetype                        │
---  ╰──────────────────────────────────────────────────────────╯
-  use {
-    'lervag/vimtex',
-  }
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          edit                            │
