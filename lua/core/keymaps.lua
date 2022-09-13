@@ -15,6 +15,7 @@ CONFIG_DIR = os.getenv("HOME") .. "/.config/nvim/"
 -- Change leader to a space
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 -----------------------------------------------------------
 -----------------------------------------------------------
 --                           _
@@ -190,3 +191,13 @@ map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]])
 map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]])
 map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
 map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
+
+-- trevJ https://github.com/AckslD/nvim-trevJ.lua
+map('n', 'gJ', "<cmd>lua require('trevj').format_at_cursor()<cr>")
+
+-- vimtext https://github.com/lervag/vimtex
+-- single shot complie + save current buffer
+map('n', '<leader>lc', '<Cmd>update<CR><Cmd>VimtexCompileSS<CR>')
+
+-- LSP
+map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<cr>')

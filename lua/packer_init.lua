@@ -90,14 +90,15 @@ return packer.startup(function(use)
 
   -- https://github.com/folke/which-key.nvim
   use {
-  "folke/which-key.nvim",
-  config = function()
-    require("which-key").setup({
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    })
-    end
+    "folke/which-key.nvim",
+    module = 'which-key',
+    config = function()
+      require("which-key").setup({
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      })
+      end
   }
 
   use 'skywind3000/vim-quickui'
@@ -167,6 +168,13 @@ return packer.startup(function(use)
   -- https://github.com/dm1try/golden_size
   use 'dm1try/golden_size'
 
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require'colorizer'.setup()
+    end
+  }
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -201,23 +209,6 @@ return packer.startup(function(use)
     end
   }
 
-  -- https://github.com/numToStr/Comment.nvim
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-  }
-
-  -- Autopair
-  use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup{
-        disable_filetype = { "TelescopePrompt" }
-      }
-    end
-  }
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                       colorschema                        │
@@ -301,6 +292,43 @@ return packer.startup(function(use)
   use 'kyazdani42/nvim-tree.lua'
 
 --  ╭──────────────────────────────────────────────────────────╮
+--  │                          filetype                        │
+--  ╰──────────────────────────────────────────────────────────╯
+  use {
+    'lervag/vimtex',
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                          edit                            │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- split lines, opposite of J
+  -- https://github.com/AckslD/nvim-trevJ.lua
+  use {
+    'AckslD/nvim-trevJ.lua',
+    config = 'require("trevj").setup()',  -- optional call for configurating non-default filetypes etc
+    -- lazy load
+    module = 'trevj',
+  }
+
+  -- https://github.com/numToStr/Comment.nvim
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
+
+  -- Autopair
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup{
+        disable_filetype = { "TelescopePrompt" }
+      }
+    end
+  }
+
+--  ╭──────────────────────────────────────────────────────────╮
 --  │                          utils                           │
 --  ╰──────────────────────────────────────────────────────────╯
   -- use sudo
@@ -314,6 +342,8 @@ return packer.startup(function(use)
   }
 
   use 'tjdevries/train.nvim'
+
+  use 'L3MON4D3/LuaSnip'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

@@ -21,4 +21,4 @@ require('plugins/alpha-nvim')
 require('plugins/dressing')
 require('plugins/nvim-navic')
 require('plugins/quickui')
--- vim.cmd[[highlight ScrollView ctermbg=159 guibg=LightCyan]]
+require('plugins/vimtex')

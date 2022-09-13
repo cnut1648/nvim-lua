@@ -10,6 +10,13 @@ nvim --startuptime startup.log -c exit && tail -100 startup.log
 
 ## Useful keybinds
 
+### LSP
+
+- `<C-]>` to jump to def, also ctrl + left click
+
+  double backticks to jump back
+
+
 ## Useful commands
 
 - `:Urlview` to search for urls in currrent buffer
