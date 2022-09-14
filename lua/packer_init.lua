@@ -5,12 +5,8 @@
 -- Plugin manager: packer.nvim
 -- url: https://github.com/wbthomason/packer.nvim
 
--- For information about installed plugins see the README:
--- neovim-lua/README.md
--- https://github.com/brainfucksec/neovim-lua#readme
-
-
 -- Automatically install packer
+
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -370,6 +366,10 @@ return packer.startup(function(use)
   use 'tjdevries/train.nvim'
 
   use 'L3MON4D3/LuaSnip'
+
+  -- if fcitx chinese mode, when leave insert mode swtich back to English
+  -- https://github.com/h-hg/fcitx.nvim
+  use 'h-hg/fcitx.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
