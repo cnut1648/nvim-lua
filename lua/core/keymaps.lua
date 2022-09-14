@@ -143,6 +143,11 @@ map('t', '<Esc>', '<C-\\><C-n>')                    -- exit
 -- Tagbar
 map('n', '<leader>tt', ':TagbarToggle<CR>')          -- open/close
 
+-- NvimTree
+map('n', '<leader>tn', ':NvimTreeToggle<CR>')            -- open/close
+-- map('n', '<leader>f', ':NvimTreeRefresh<CR>')       -- refresh
+-- map('n', '<leader>tn', ':NvimTreeFindFile<CR>')      -- search file
+
 -- Ranger
 map('n', '<leader>k', ':RnvimrToggle<CR>')
 

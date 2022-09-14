@@ -281,7 +281,17 @@ return packer.startup(function(use)
   }
 
   use {
-    "frabjous/knap"
+    "frabjous/knap",
+    config = function()
+      local gknapsettings = {
+        htmltohtmlviewerlaunch = "live-server --quiet --browser=google-chrome-stable --open=%outputfile% --watch=%outputfile% --wait=800 /tmp",
+        htmltohtmlviewerrefresh = "none",
+        mdtohtml="tmpfile=\"/tmp/$(basename %outputfile%)\" ; pandoc --standalone %docroot% -o \"$tmpfile\"",
+        mdtohtmlviewerlaunch = "live-server --quiet --browser=google-chrome-stable --open=%outputfile% --watch=%outputfile% --wait=800 /tmp",
+        mdtohtmlviewerrefresh = "none",
+      }
+      vim.g.knap_settings = gknapsettings
+    end
   }
 
 --  ╭──────────────────────────────────────────────────────────╮
@@ -329,6 +339,20 @@ return packer.startup(function(use)
       }
     end
   }
+
+  -- textobjs
+  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  use {'nvim-treesitter/nvim-treesitter-textobjects'}
+
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  })
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          utils                           │

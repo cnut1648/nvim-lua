@@ -1,7 +1,5 @@
 # nvim-lua
-My dot file for nvim
-
-`init.vim.bak` is my old vimscript config; starting to use `init.lua` on Sep 10 2022
+My dot file for nvim, `init.vim.bak` is my old vimscript config; starting to use `init.lua` on Sep 10 2022
 
 Check startup time with
 ```bash
@@ -12,15 +10,15 @@ nvim --startuptime startup.log -c exit && tail -100 startup.log
 
 For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
-### LSP
+### 1. LSP
 
 - `<C-]>` to jump to def, also ctrl + left click
 
   double backticks to jump back
 
-### LuaSnip
+### 2. LuaSnip
 
-### Plugins
+### 3. Plugins
 
 - `gJ` to smart split a line, reverse of `J`
 
@@ -32,8 +30,9 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 - `<leader>t*` for bar, eg `tt` for tagbar
 
-- can always use `which-keys` to show commands
+- use `ys<obj><obj2>` to surround `obj` with `obj2`; `ds<obj>` to remove `<obj>`; and `cs<obj><obj2>` to change surrounding `obj` to `obj2`. See [here](https://github.com/kylechui/nvim-surround#rocket-usage) for more
 
+- can always use `which-keys` to show commands; and `quickui` for more
 
 ## Useful commands
 
@@ -49,3 +48,5 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 ## Tex
 
 Ensure `texlab` is installed for LSP
+
+Snippets are

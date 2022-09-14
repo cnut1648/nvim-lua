@@ -73,6 +73,8 @@ call quickui#menu#install("&Git", [
             \ ])
 
 call quickui#menu#install('&Tools', [
+            \ ['&Preview', 'lua require("knap").toggle_autopreviewing()', 'Knap Preview'],
+            \ ['&Url View', 'UrlView', 'Check all URLs in current buffer'],
             \ ['Compare &History', 'call svnhelp#compare_ask_file()', ''],
             \ ['&Compare Buffer', 'call svnhelp#compare_ask_buffer()', ''],
             \ ['--',''],
@@ -81,9 +83,8 @@ call quickui#menu#install('&Tools', [
             \ ['Display &Messages', 'call quickui#tools#display_messages()', ],
             \ ['--',''],
             \ ["&DelimitMate %{get(b:, 'delimitMate_enabled', 0)? 'Disable':'Enable'}", 'DelimitMateSwitch'],
-            \ ['Read &URL', 'call menu#ReadUrl()', 'load content from url into current buffer'],
             \ ['&Spell %{&spell? "Disable":"Enable"}', 'set spell!', 'Toggle spell check %{&spell? "off" : "on"}'],
-            \ ['&Profile Start', 'call MonitorInit()', ''],
+            \ ['Profile Start', 'call MonitorInit()', ''],
             \ ['Profile S&top', 'call MonitorExit()', ''],
             \ ["Relati&ve number %{&relativenumber? 'OFF':'ON'}", 'set relativenumber!'],
             \ ["Proxy &Enable", 'call MenuHelp_Proxy(1)', 'setup http_proxy/https_proxy/all_proxy'],
