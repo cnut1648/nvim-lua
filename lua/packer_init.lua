@@ -318,7 +318,7 @@ return packer.startup(function(use)
     module = 'trevj',
   }
 
-   -- https://github.com/numToStr/Comment.nvim
+  -- https://github.com/numToStr/Comment.nvim
   use {
     'numToStr/Comment.nvim',
     config = function()
@@ -366,7 +366,14 @@ return packer.startup(function(use)
 
   use 'tjdevries/train.nvim'
 
-  use 'L3MON4D3/LuaSnip'
+  use {
+    'L3MON4D3/LuaSnip',
+    config = function()
+      require("luasnip.loaders.from_lua").load ({
+        paths = "~/.config/nvim/lua/snip"
+      })
+    end
+  }
 
   -- if fcitx chinese mode, when leave insert mode swtich back to English
   -- https://github.com/h-hg/fcitx.nvim

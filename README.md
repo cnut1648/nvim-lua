@@ -16,7 +16,11 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
   double backticks to jump back
 
+- `:LspInfo` to test filetype LSP support
+
 ### 2. LuaSnip
+
+Use `:LuaSnipListAvailable` debug whether a snip is loaded
 
 ### 3. Plugins
 
@@ -43,6 +47,8 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 - `:w!!` overwrite permission protected files w/ sudo, powered by `suda.vim`
 
 - `:Train*` from [train](https://github.com/tjdevries/train.nvim) can be used to familiarize textobjects etc
+
+- `<C-t>` open terminal
 
 
 ## Tex
