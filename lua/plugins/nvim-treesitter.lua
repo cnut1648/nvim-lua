@@ -16,13 +16,15 @@ nvim_treesitter.setup {
   -- A list of parser names, or "all"
   ensure_installed = {
     'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
-    'rust', 'typescript', 'vim', 'yaml', 'latex'
+    'rust', 'typescript', 'vim', 'yaml',
   },
+  ignore_install = { "latex" }, -- doesn't play well with vimtex
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
+    disable = { "latex" }, -- doesn't play well with vimtex
   },
   rainbow = {
     enable = true,

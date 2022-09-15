@@ -49,4 +49,34 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 Ensure `texlab` is installed for LSP
 
-Snippets are
+New text objects are `c` (commands eg `\textbf`); `d` (delimiters eg `( x + y)`, also `\big(\big)`); `e` (environment eg `align`); `$` (inline math mode); `P` (sections); `m` (items in `enumerate` or `itemize`)
+
+Commands include
+
+- `<F7>` insert new command
+
+- in insert mode `]]` complete current environment
+
+- `<c/d>s<obj>`, smart (eg `csd[` on `\left(\right)` => `\left[\right]`)
+
+- `ts<c/e>` toggle command or env, eg `\section` => `\section*` or `\begin{equation}` => `\begin{equation*}`
+
+- `ts$` toggle between math inline to math display and equation
+
+- `tsd` toggle plain vs `\left/\right` versions of delimiters
+
+- `tsf` toggle fraction
+
+- `%` move within env, inline math, delimiters
+
+- `]]` and `[[` jump around `section`, `subsection`, `subsubsection`
+
+- `]m` and `[m` jump between env
+
+- `]n` and `[n` jump between math (inline or display)
+
+- `:VimtexDocPackage` on `\usepackage{}` to see doc
+
+- You can jump to the TeX source code of packages, style files, and documents included with \include{} and \input{} using the gf shortcut; you can read more about this feature at :help vimtex-includeexpr ?????
+
+- `:VimtexCount*` count letters / words

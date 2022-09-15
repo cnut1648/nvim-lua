@@ -318,7 +318,7 @@ return packer.startup(function(use)
     module = 'trevj',
   }
 
-  -- https://github.com/numToStr/Comment.nvim
+   -- https://github.com/numToStr/Comment.nvim
   use {
     'numToStr/Comment.nvim',
     config = function()
@@ -349,6 +349,7 @@ return packer.startup(function(use)
         })
     end
   })
+
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          utils                           │

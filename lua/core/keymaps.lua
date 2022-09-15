@@ -52,24 +52,24 @@ map('n', '<C-k>', ':bnext<CR>') -- next file
 ----------------------------------------------
 map('n', '<M-S-v>', '<C-W><C-S>') -- vertical split
 map('n', '<M-S-g>', '<C-W><C-V>') -- horizontal split
-map('n', '<M-S-n>', '<C-W>T') -- move to new window
+map('n', '<M-S-n>', '<C-W>T') -- move this window to new tab
 map('n', '<M-S-m>', '<C-W>n') -- create new window
 -- navigate
 map('n', '<M-S-h>', '<C-W>h')
 map('n', '<M-S-j>', '<C-W>j')
 map('n', '<M-S-k>', '<C-W>k')
 map('n', '<M-S-l>', '<C-W>l')
-map('n', '<M-S-p>', '<C-W>p')
-map('n', '<M-S-w>', '<C-W>w')
-map('n', '<M-S-b>', '<C-W>b')
-map('n', '<M-S-q>', '<C-W>q')
-map('n', '<M-S-a>', '<C-W>o')
+map('n', '<M-S-p>', '<C-W>p') -- previous window
+map('n', '<M-S-w>', '<C-W>w') -- move down
+map('n', '<M-S-b>', '<C-W>b') -- move to bottom
+map('n', '<M-S-q>', '<C-W>q') -- quit current window
+map('n', '<M-S-a>', '<C-W>o') -- make current window the only window, others are closed
 -- change size
 map('n', '<M-S-->', '<C-W>-')
 map('n', '<M-S-+>', '<C-W>+')
 map('n', '<M-S-<>', '<C-W><')
 map('n', '<M-S->>', '<C-W>>')
-map('n', '<M-S-=>', ":lua require('nvim-window').pick()<CR>")
+map('n', '<M-S-=>', ":lua require('nvim-window').pick()<CR>") -- select window by one key
 
 -- Map Esc to jk
 map('i', 'jk', '<Esc>')
