@@ -48,8 +48,17 @@ let g:vimtex_compiler_latexmk = {
   \ ],
 \}
 
+
+let g:vimtex_env_toggle_math_map = {
+      \ '$': '\[',
+      \ '\[': 'equation',
+      \ 'equation': 'align',
+      \ 'align': 'multiline*',
+      \ 'multiline*': 'gather',
+      \}
+
 " Don't open QuickFix for warning messages if no errors are present
-" let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_open_on_warning = 0
 
 " Filter out some compilation warning messages from QuickFix display
 let g:vimtex_quickfix_ignore_filters = [

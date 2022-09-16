@@ -57,9 +57,18 @@ return packer.startup(function(use)
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      'L3MON4D3/LuaSnip',
       'hrsh7th/cmp-nvim-lsp',
-      'saadparwaiz1/cmp_luasnip',
+      "quangnguyen30192/cmp-nvim-ultisnips",
+      config = function()
+        -- optional call to setup (see customization section)
+        require("cmp_nvim_ultisnips").setup{
+          filetype_source = "treesitter",
+          show_snippets = "all",
+          documentation = function(snippet)
+            return snippet.description
+          end
+        }
+      end,
     },
   }
 
@@ -234,7 +243,7 @@ return packer.startup(function(use)
     config = function()
       require('neoscroll').setup({
         -- All these keys will be mapped to their corresponding default scrolling animation
-        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+        mappings = {'<C-u>', '<C-d>', '<C-b>', -- '<C-f>',
                     '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
         hide_cursor = true,          -- Hide cursor while scrolling
         stop_eof = true,             -- Stop at <EOF> when scrolling downwards
@@ -350,6 +359,23 @@ return packer.startup(function(use)
     end
   })
 
+  -- snippet engine
+  -- https://github.com/SirVer/ultisnips
+  use {
+    'SirVer/ultisnips',
+    requires = {
+      -- predef snippets
+      'honza/vim-snippets'
+    },
+    config = function()
+      vim.cmd [[
+        let g:UltiSnipsSnippetDirectories=["snip"]
+        " If you want :UltiSnipsEdit to split your window.
+        let g:UltiSnipsEditSplit="vertical"
+      ]]
+    end
+  }
+
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          utils                           │
@@ -366,16 +392,7 @@ return packer.startup(function(use)
 
   use 'tjdevries/train.nvim'
 
-  use {
-    'L3MON4D3/LuaSnip',
-    config = function()
-      require("luasnip.loaders.from_lua").load ({
-        paths = "~/.config/nvim/lua/snip"
-      })
-    end
-  }
-
-  -- if fcitx chinese mode, when leave insert mode swtich back to English
+  -- if fcitx chinese mode, when leave insert mode switch back to English
   -- https://github.com/h-hg/fcitx.nvim
   use 'h-hg/fcitx.nvim'
 

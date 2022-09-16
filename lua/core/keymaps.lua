@@ -217,3 +217,12 @@ snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 ]]
+
+-- inkscape figure
+-- https://github.com/gillescastel/inkscape-figures
+-- .! means direct script output to current line
+vim.cmd [[
+autocmd FileType tex inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
+autocmd FileType tex nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+autocmd FileType tex inoremap <C-s> <Esc>: silent exec '.!python ~/.config/nvim/save_screenshot.py "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>
+]]

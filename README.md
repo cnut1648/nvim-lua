@@ -86,3 +86,7 @@ Commands include
 - You can jump to the TeX source code of packages, style files, and documents included with \include{} and \input{} using the gf shortcut; you can read more about this feature at :help vimtex-includeexpr ?????
 
 - `:VimtexCount*` count letters / words
+
+- In insert mode first type figure filename then `<C-f>` to insert figures by inkscape; `<C-f>` in normal mode to edit figures. More details ref to [Gilles Castel](https://github.com/gillescastel/inkscape-figures). Must run `inkscape-figures watch` first.
+
+- In insert mode first take a screenshot, then type figure name, hit `<C-s>` and it will automatically append screenshot
