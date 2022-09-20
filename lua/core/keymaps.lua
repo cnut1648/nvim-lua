@@ -98,6 +98,8 @@ map('n', 'O', 'O<Esc>j')
 -- Write & Reload configuration
 -- always <leader>x
 map('n', '<leader>xv', ':e ' .. CONFIG_DIR  .. 'init.lua<CR>')
+-- refresh snip
+map('n', '<leader>xs', ': UltiSnips#RefreshSnippets()<CR>')
 map('n', '<leader>xr', ':w <bar> :so ' .. CONFIG_DIR .. 'init.lua<CR>')
 map('n', '<leader>xo', ':set rnu! <CR>')
 
@@ -122,6 +124,8 @@ map('v', '>', '>gv')
 map('v', 'J', ":m '>+1<CR>gv=gv")
 map('v', 'K', ":m '<-2<CR>gv=gv")
 
+-- auto correct spellchecker by first candidate (1z=)
+map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
 
 -----------------------------------------------------------
 -----------------------------------------------------------
@@ -156,10 +160,17 @@ map('n', '<leader>k', ':RnvimrToggle<CR>')
 map('n', '<C-/>', ":lua require('Comment.api').toggle.linewise.current()<CR>")
 
 -- Telescope https://github.com/nvim-telescope/telescope.nvim
+-- in pwd
 map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+-- string in pwd
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+-- search file name in buffer
 map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+map('n', '<leader>ft', '<cmd>Telescope help_tags<cr>')
+-- previous search, select then research
+map('n', '<leader>fs', '<cmd>Telescope search_history<cr>')
+-- recent files
+map('n', '<leader>fh', '<cmd>Telescope oldfiles<cr>')
 
 -- Hop https://github.com/phaazon/hop.nvim
 -- disable s
@@ -226,3 +237,16 @@ autocmd FileType tex inoremap <C-f> <Esc>: silent exec '.!inkscape-figures creat
 autocmd FileType tex nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 autocmd FileType tex inoremap <C-s> <Esc>: silent exec '.!python ~/.config/nvim/save_screenshot.py "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>
 ]]
+
+-- todo comments, https://github.com/folke/todo-comments.nvim
+-- jump between TODOS
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
+-- Undotree, https://github.com/mbbill/undotree
+map('n', '<leader>tu', ':UndotreeToggle<CR>')          -- open/close

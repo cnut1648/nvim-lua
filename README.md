@@ -18,11 +18,9 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 - `:LspInfo` to test filetype LSP support
 
-### 2. LuaSnip
+### 2. Plugins
 
-Use `:LuaSnipListAvailable` debug whether a snip is loaded
-
-### 3. Plugins
+- `[s/]s` jump to spell checker detected error; `zg` add current word to dictionary; `z=` select candidates; `1z=` select first candidate
 
 - `gJ` to smart split a line, reverse of `J`
 
@@ -37,6 +35,8 @@ Use `:LuaSnipListAvailable` debug whether a snip is loaded
 - use `ys<obj><obj2>` to surround `obj` with `obj2`; `ds<obj>` to remove `<obj>`; and `cs<obj><obj2>` to change surrounding `obj` to `obj2`. See [here](https://github.com/kylechui/nvim-surround#rocket-usage) for more
 
 - can always use `which-keys` to show commands; and `quickui` for more
+
+- `:bd` to delete current buffer; while `:q` quit whole neovim (all buffers)
 
 ## Useful commands
 
@@ -59,7 +59,7 @@ New text objects are `c` (commands eg `\textbf`); `d` (delimiters eg `( x + y)`,
 
 Commands include
 
-- `<F7>` insert new command
+- `<F7>` insert new command, eg in visual mode after selection
 
 - in insert mode `]]` complete current environment
 
@@ -87,6 +87,6 @@ Commands include
 
 - `:VimtexCount*` count letters / words
 
-- In insert mode first type figure filename then `<C-f>` to insert figures by inkscape; `<C-f>` in normal mode to edit figures. More details ref to [Gilles Castel](https://github.com/gillescastel/inkscape-figures). Must run `inkscape-figures watch` first.
+- In insert mode first type figure filename then `<C-f>` to insert figures by inkscape; `<C-f>` in normal mode to edit figures. More details ref to [Gilles Castel](https://github.com/gillescastel/inkscape-figures). Must run `inks cape-figures watch` first.
 
 - In insert mode first take a screenshot, then type figure name, hit `<C-s>` and it will automatically append screenshot

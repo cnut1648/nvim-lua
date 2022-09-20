@@ -93,6 +93,7 @@ return packer.startup(function(use)
   -- https://github.com/kyazdani42/nvim-web-devicons
   use 'kyazdani42/nvim-web-devicons'
 
+
   -- https://github.com/folke/which-key.nvim
   use {
     "folke/which-key.nvim",
@@ -103,6 +104,13 @@ return packer.startup(function(use)
         -- refer to the configuration section below
       })
       end
+  }
+
+  use {
+    'mrjones2014/legendary.nvim',
+    config = function()
+      require('legendary').setup()
+    end
   }
 
   use 'skywind3000/vim-quickui'
@@ -131,6 +139,9 @@ return packer.startup(function(use)
   -- use ctags in sys
   -- https://github.com/preservim/tagbar
   use 'preservim/tagbar'
+
+  -- UndoTree
+  use 'mbbill/undotree'
 
   -- Statusline
   -- https://github.com/feline-nvim/feline.nvim
@@ -179,6 +190,10 @@ return packer.startup(function(use)
     end
   }
 
+  -- zen mode
+  -- https://github.com/junegunn/goyo.vim
+  use "junegunn/goyo.vim"
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -195,6 +210,20 @@ return packer.startup(function(use)
 
   -- highlight all occurences of selection
   use 'RRethy/vim-illuminate'
+
+  -- highlight todos
+  -- https://github.com/folke/todo-comments.nvim
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+    require("todo-comments").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+    end
+  }
 
   -- trim empty lines on save
   -- https://github.com/cappyzawa/trim.nvim

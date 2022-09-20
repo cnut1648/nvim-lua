@@ -1,14 +1,14 @@
 import os, sys
 import subprocess
-# import pyperclip
 
-filename: str = sys.argv[1].strip()
+title: str = sys.argv[1].strip()
 # eg <path>/figures
 root: str = sys.argv[2]
 
 os.makedirs(root, exist_ok=True)
 
 def latex_template(name, title):
+    # default use title as caption
     return '\n'.join((
         r"\begin{figure}[ht]",
         r"    \centering",
@@ -21,9 +21,10 @@ def indent(text, indentation=0):
     lines = text.split('\n');
     return '\n'.join(" " * indentation + line for line in lines)
 
-def beautify(name):
-    return name.replace('_', ' ').replace('-', ' ').title()
-
+filename = title.replace(" ", "_").lower() # avoid empty space in filename
+if filename[-1] == ".":
+    filename = filename[:-1]
 subprocess.run(f"xclip -selection clipboard -t image/png -o > {os.path.join(root, f'{filename}.png')}", shell=True)
 
-print(indent(latex_template(filename, beautify(filename)), indentation=2))
+# due to keymap .! every stdout is redirected to insert typing
+print(indent(latex_template(filename, title), indentation=2))

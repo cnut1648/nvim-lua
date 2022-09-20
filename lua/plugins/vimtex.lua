@@ -52,9 +52,9 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_env_toggle_math_map = {
       \ '$': '\[',
       \ '\[': 'equation',
-      \ 'equation': 'align',
-      \ 'align': 'multiline*',
-      \ 'multiline*': 'gather',
+      \ 'equation': 'align*',
+      \ 'align*': 'multline*',
+      \ 'multline*': 'gather',
       \}
 
 " Don't open QuickFix for warning messages if no errors are present
@@ -65,6 +65,8 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Underfull \\hbox',
       \ 'Overfull \\hbox',
       \ 'LaTeX Warning: .\+ float specifier changed to',
+      \ 'Package microtype Warning: Unable to apply patch',
+      \ 'Package microtype Warning: One or more slots in the configuration',
       \ 'LaTeX hooks Warning',
       \ 'Package siunitx Warning: Detected the "physics" package:',
       \ 'Package hyperref Warning: Token not allowed in a PDF string',

@@ -92,5 +92,6 @@ end
 
 vim.cmd[[
 setlocal spell
-set spelllang=en_us
+set spelllang=en_us,cjk
+set spellsuggest=best,9
 ]]
