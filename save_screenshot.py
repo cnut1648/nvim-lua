@@ -21,7 +21,7 @@ def indent(text, indentation=0):
     lines = text.split('\n');
     return '\n'.join(" " * indentation + line for line in lines)
 
-filename = title.replace(" ", "_").lower() # avoid empty space in filename
+filename = title.replace(" ", "_").replace("/", "").lower() # avoid empty space in filename
 if filename[-1] == ".":
     filename = filename[:-1]
 subprocess.run(f"xclip -selection clipboard -t image/png -o > {os.path.join(root, f'{filename}.png')}", shell=True)

@@ -70,5 +70,6 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'LaTeX hooks Warning',
       \ 'Package siunitx Warning: Detected the "physics" package:',
       \ 'Package hyperref Warning: Token not allowed in a PDF string',
+      \ 'LaTex Font Warning: Font shape',
       \]
 ]])

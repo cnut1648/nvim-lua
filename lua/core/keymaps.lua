@@ -99,7 +99,7 @@ map('n', 'O', 'O<Esc>j')
 -- always <leader>x
 map('n', '<leader>xv', ':e ' .. CONFIG_DIR  .. 'init.lua<CR>')
 -- refresh snip
-map('n', '<leader>xs', ': UltiSnips#RefreshSnippets()<CR>')
+map('n', '<leader>xs', ': call UltiSnips#RefreshSnippets()<CR>')
 map('n', '<leader>xr', ':w <bar> :so ' .. CONFIG_DIR .. 'init.lua<CR>')
 map('n', '<leader>xo', ':set rnu! <CR>')
 
