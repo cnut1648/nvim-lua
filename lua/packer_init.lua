@@ -1,10 +1,8 @@
 -----------------------------------------------------------
 -- Plugin manager configuration file
 -----------------------------------------------------------
-
 -- Plugin manager: packer.nvim
 -- url: https://github.com/wbthomason/packer.nvim
-
 -- Automatically install packer
 
 local fn = vim.fn
@@ -354,6 +352,17 @@ return packer.startup(function(use)
     config = 'require("trevj").setup()',  -- optional call for configurating non-default filetypes etc
     -- lazy load
     module = 'trevj',
+  }
+
+  -- https://github.com/max397574/better-escape.nvim
+  use {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup({
+        mapping = {"jk"},
+        timeout = 150
+      })
+    end,
   }
 
   -- https://github.com/numToStr/Comment.nvim

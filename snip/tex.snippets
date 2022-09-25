@@ -310,11 +310,6 @@ snippet notin "not in " iA
 \not\in
 endsnippet
 
-context "math()"
-snippet inn "in " iA
-\in
-endsnippet
-
 snippet Nn "cap" iA
 \cap
 endsnippet
@@ -593,32 +588,44 @@ endsnippet
 
 priority 2000
 context "math()"
-snippet "([a-zA-Z}])ii" "xi" rwA
+snippet "\b([a-zA-Z}])ii" "xi" rwA
 `!p snip.rv=match.group(1)`_{i}
 endsnippet
 
 priority 2000
 context "math()"
-snippet "([a-zA-Z}])jj" "xj" rwA
+snippet "\b([a-zA-Z}])jj" "xj" rwA
 `!p snip.rv=match.group(1)`_{j}
 endsnippet
 
 priority 2000
 context "math()"
-snippet "([a-zA-Z}])kk" "xk" rwA
+snippet "\b([a-zA-Z}])kk" "xk" rwA
 `!p snip.rv=match.group(1)`_{k}
 endsnippet
 
 priority 2000
 context "math()"
-snippet "([a-zA-Z])ih" "x_{i-1}" rwA
+snippet "\b([a-zA-Z])ih" "x_{i-1}" rwA
 `!p snip.rv=match.group(1)`_{i-1}
 endsnippet
 
 priority 2000
 context "math()"
-snippet "([a-zA-Z])il" "x_{i+1}" rwA
+snippet "\b([a-zA-Z])il" "x_{i+1}" rwA
 `!p snip.rv=match.group(1)`_{i+1}
+endsnippet
+
+priority 2000
+context "math()"
+snippet "\b(a|A|X|x|Y|y)nn" "xi" rwA
+`!p snip.rv=match.group(1)`_{n}
+endsnippet
+
+priority 2000
+context "math()"
+snippet "\b(a|A|X|x|Y|y)mm" "xi" rwA
+`!p snip.rv=match.group(1)`_{m}
 endsnippet
 
 snippet __ "subscript" iA
@@ -721,7 +728,7 @@ endsnippet
 
 context "math()"
 snippet norm "norm" iA
-\norm{$1}$0
+\norm{${1:$VISUAL}}$0
 endsnippet
 
 context "math()"
