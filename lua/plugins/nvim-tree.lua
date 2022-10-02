@@ -39,8 +39,8 @@ nvim_tree.setup {
   view = {
     adaptive_size = false,
     centralize_selection = false,
-    width = 32,
-    height = 30,
+    -- width = 32,
+    -- height = 30,
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,

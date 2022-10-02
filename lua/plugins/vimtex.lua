@@ -58,6 +58,10 @@ let g:vimtex_env_toggle_math_map = {
       \ 'multline*': 'gather',
       \}
 
+let g:vimtex_syntax_conceal = {
+    \ 'math_bounds': 0,
+\}
+
 " Don't open QuickFix for warning messages if no errors are present
 let g:vimtex_quickfix_open_on_warning = 0
 

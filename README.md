@@ -59,7 +59,7 @@ New text objects are `c` (commands eg `\textbf`); `d` (delimiters eg `( x + y)`,
 
 Commands include
 
-- `<F7>` insert new command, eg in visual mode after selection
+- `<F7>` insert new command, eg in visual mode after selection; `<F6>` insert new environment
 
 - in insert mode `]]` complete current environment
 

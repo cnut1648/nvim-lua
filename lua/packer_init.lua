@@ -360,7 +360,7 @@ return packer.startup(function(use)
     config = function()
       require("better_escape").setup({
         mapping = {"jk"},
-        timeout = 150
+        timeout = 1000
       })
     end,
   }

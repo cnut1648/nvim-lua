@@ -42,7 +42,6 @@ snippet alg "algorithm" b
 \end{algorithm}
 endsnippet
 
-context "math()"
 snippet prftwoway "two way proof" bA
 \begin{itemize}
 	\item [\implies] $1
@@ -71,7 +70,7 @@ if len(t[2]) == 0:
 	snip.rv = ""
 else:
 	prefix=map.get(t[1], "")
-	snip.rv= r"\label{" + prefix + ":" + t[2].replace(' ', '_').lower() + "}"
+	snip.rv= r"\label{" + prefix + ":" + t[2].replace(' ', '_').replace('$', '').lower() + "}"
 `
 	$0
 \\end{$1}
@@ -121,8 +120,9 @@ snippet ali "Align" bA
 .\end{align*}
 endsnippet
 
+context "math()"
 snippet cvec "column vector" iA
-\begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots\\\\ $1_${2:n} \end{pmatrix}
+\begin{pmatrix} $1 \\\\ ${2:\\vdots} \end{pmatrix}$0
 endsnippet
 
 context "math()"
@@ -175,6 +175,11 @@ endsnippet
 context "math()"
 snippet sig "sigma" iA
 \sigma
+endsnippet
+
+context "math()"
+snippet Sig "Sigma" iA
+\Sigma
 endsnippet
 
 context "math()"
@@ -238,6 +243,16 @@ snippet ceil "ceil" iA
 endsnippet
 
 context "math()"
+snippet norm "norm" iA
+\norm{${1:$VISUAL}}$0
+endsnippet
+
+context "math()"
+snippet abs "abs" iA
+\abs{${1:$VISUAL}}$0
+endsnippet
+
+context "math()"
 snippet floor "floor" iA
 \left\lfloor $1 \right\rfloor$0
 endsnippet
@@ -294,7 +309,7 @@ endsnippet
 
 context "math()"
 snippet set "set" wA
-\\{$1\\} $0
+\\{$1\\}$0
 endsnippet
 
 snippet || "mid" iA
@@ -310,24 +325,25 @@ snippet notin "not in " iA
 \not\in
 endsnippet
 
+# if has $2, add superscript
+snippet UUU "bigcup" iA
+\bigcup_{${1:i \in I}}`!p snip.rv = "^{" if t[2] else ""`$2`!p snip.rv = "}" if t[2] else ""` $0
+endsnippet
+
+snippet Uu "cup" iA
+\cup
+endsnippet
+
+snippet NNN "cap" iA
+\bigcap_{${1:i \in I}}`!p snip.rv = "^{" if t[2] else ""`$2`!p snip.rv = "}" if t[2] else ""` $0
+endsnippet
+
 snippet Nn "cap" iA
 \cap
 endsnippet
 
-snippet UU "cup" iA
-\cup
-endsnippet
-
-snippet uuu "bigcup" iA
-\bigcup_{${1:i \in ${2: I}}} $0
-endsnippet
-
-snippet nnn "bigcap" iA
-\bigcap_{${1:i \in ${2: I}}} $0
-endsnippet
-
 context "math()"
-snippet OO "emptyset" iA
+snippet OOO "emptyset" iA
 \emptyset
 endsnippet
 
@@ -336,21 +352,22 @@ snippet SI "SI units" iA
 endsnippet
 
 context "math()"
-snippet sum "sum" w
-\sum_{${1:i}=${2:1}}^{${3:\infty}} ${4:a_n z^n}
-endsnippet
-
-context "math()"
 snippet 'sum([A-Za-z])' "sum with variable" rwA
-\sum_{`!p snip.rv = match.group(1)`=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+\sum_{`!p snip.rv = match.group(1)`=${1:1}}`!p snip.rv = "^{" if t[2] else ""`$2`!p snip.rv = "}" if t[2] else ""` ${3:a_n z^n}
 endsnippet
 
 snippet taylor "taylor" w
 \sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
 
+context "math()"
 snippet lim "limit" w
 \lim_{${1:n} \to ${2:\infty}}
+endsnippet
+
+context "math()"
+snippet 'lim([A-Za-z])' "limit variable" wrA
+\lim_{`!p snip.rv = match.group(1)` \to ${2:\infty}}
 endsnippet
 
 snippet limsup "limsup" w
@@ -374,11 +391,6 @@ endsnippet
 
 snippet ooo "\infty" iA
 \infty
-endsnippet
-
-context "math()"
-snippet probspace "prob space" i
-(\Omega, \mathcal{F}, \mathbb{P})
 endsnippet
 
 context "math()"
@@ -410,6 +422,11 @@ snippet "hat" "hat" riA
 \widehat{$1}$0
 endsnippet
 
+context "math()"
+snippet "til" "tilde" riA
+\widetilde{$1}$0
+endsnippet
+
 priority 100
 context "math()"
 snippet "([a-zA-Z])hat" "hat" riA
@@ -417,23 +434,23 @@ snippet "([a-zA-Z])hat" "hat" riA
 endsnippet
 
 context "math()"
-snippet ob "overbrace" iA
+snippet ob "overbrace" i
 \overbrace{${1:${VISUAL}}}^${2:up}$0
 endsnippet
 
 context "math()"
-snippet ub "underbrace" iA
+snippet ub "underbrace" i
 \underbrace{${1:${VISUAL}}}_${2:under}$0
 endsnippet
 
 priority 1
 context "math()"
-snippet os "overset" iA
+snippet os "overset" i
 \overset{${1:up}}{${2:${VISUAL}}}$0
 endsnippet
 
 context "math()"
-snippet us "underset" iA
+snippet us "underset" i
 \underset{${1:up}}{${2:${VISUAL}}}$0
 endsnippet
 
@@ -498,11 +515,11 @@ snippet <> "hokje" iA
 endsnippet
 
 snippet goup "up arrow" i
-$\nearrow$
+\nearrow
 endsnippet
 
 snippet godown "down arrow" i
-$\searrow$
+\searrow
 endsnippet
 
 snippet <= "leq" iA
@@ -532,14 +549,13 @@ snippet TT "transpose" iA
 ^T
 endsnippet
 
-
 context "math()"
 snippet invs "inverse" iA
 ^{-1}
 endsnippet
 
 context "math()"
-snippet compl "complement" iA
+snippet cpl "complement" iA
 ^{c}
 endsnippet
 
@@ -549,7 +565,7 @@ snippet sr "^2" iA
 endsnippet
 
 context "math()"
-snippet cb "^3" iA
+snippet tp "^3 triple" iA
 ^3
 endsnippet
 
@@ -559,7 +575,7 @@ snippet tu "to the ... power" iA
 endsnippet
 
 context "math()"
-snippet td "to the ... power" iA
+snippet te "to the ... power" iA
 ^{($1)}$0
 endsnippet
 
@@ -588,44 +604,52 @@ endsnippet
 
 priority 2000
 context "math()"
-snippet "\b([a-zA-Z}])ii" "xi" rwA
-`!p snip.rv=match.group(1)`_{i}
+snippet "\b([a-zA-Z}])u([ijkn])" "xi" rwA
+`!p snip.rv=match.group(1)`_{`!p snip.rv=match.group(2)`$1}$0
+endsnippet
+
+# auih => a_{i-1}
+# first expand to a_{il}
+# `!p snip.rv=match.group(1)`_{i$1}$0
+priority 2000
+context "math()"
+snippet "\b([a-zA-Z}])_[{]([ijkn])h" "x_{i-1}" rwA
+`!p snip.rv=match.group(1)`_{`!p snip.rv=match.group(2)`-1
+endsnippet
+
+# auil => a_{i+1}
+# first expand to a_{il
+# `!p snip.rv=match.group(1)`_{i$1}$0
+priority 2000
+context "math()"
+snippet "\b([a-zA-Z}])_[{]([ijkn])l" "x_{i+1}" rwA
+`!p snip.rv=match.group(1)`_{`!p snip.rv=match.group(2)`+1
+endsnippet
+
+# au3i => a_{iii}
+# will be first expand to au_3
+priority 10000
+context "math()"
+snippet "\b([a-zA-Z}])u_(\d)([ijkn])" "xiiii" rwA
+`!p snip.rv=match.group(1)`_{`!p snip.rv=int(match.group(2))*match.group(3)`$1}$0
+endsnippet
+
+# auuij then tab => a_{ij}
+context "math()"
+snippet "\b([a-zA-Z}])uu([a-zA-Z]+)" "xijkl" rw
+`!p snip.rv=match.group(1)`_{`!p snip.rv=match.group(2)`$1}$0
 endsnippet
 
 priority 2000
 context "math()"
-snippet "\b([a-zA-Z}])jj" "xj" rwA
-`!p snip.rv=match.group(1)`_{j}
-endsnippet
-
-priority 2000
-context "math()"
-snippet "\b([a-zA-Z}])kk" "xk" rwA
-`!p snip.rv=match.group(1)`_{k}
-endsnippet
-
-priority 2000
-context "math()"
-snippet "\b([a-zA-Z])ih" "x_{i-1}" rwA
+snippet "\b([a-zA-Z])uh" "x_{i-1}" rwA
 `!p snip.rv=match.group(1)`_{i-1}
 endsnippet
 
 priority 2000
 context "math()"
-snippet "\b([a-zA-Z])il" "x_{i+1}" rwA
+snippet "\b([a-zA-Z])ul" "x_{i+1}" rwA
 `!p snip.rv=match.group(1)`_{i+1}
-endsnippet
-
-priority 2000
-context "math()"
-snippet "\b(a|A|X|x|Y|y)nn" "xi" rwA
-`!p snip.rv=match.group(1)`_{n}
-endsnippet
-
-priority 2000
-context "math()"
-snippet "\b(a|A|X|x|Y|y)mm" "xi" rwA
-`!p snip.rv=match.group(1)`_{m}
 endsnippet
 
 snippet __ "subscript" iA
@@ -644,6 +668,7 @@ snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
 
+context "math()"
 snippet / "Fraction" i
 \\frac{${VISUAL}}{$1}$0
 endsnippet
@@ -672,10 +697,15 @@ endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                           text                           │
 # ╰──────────────────────────────────────────────────────────╯
-snippet bb "bold" iA
+snippet bb "bold" i
 \textbf{${1:${VISUAL}}}
 endsnippet
 
+snippet code "code" iA
+\texttt{${1:${VISUAL}}}
+endsnippet
+
+context "math()"
 snippet tcolor "textcolor" iA
 \textcolor{${1:red}}{${2:${VISUAL}}}
 endsnippet
@@ -688,6 +718,11 @@ endsnippet
 context "math()"
 snippet risk "mathcal R" iA
 \mathcal{R}
+endsnippet
+
+context "math()"
+snippet param "theta" iA
+\theta
 endsnippet
 
 context "math()"
@@ -706,12 +741,6 @@ snippet where "where" iA
 endsnippet
 
 context "math()"
-snippet unif "uniform dist" iA
-\text{Unif}[$1, $2]
-endsnippet
-
-
-context "math()"
 snippet iff "iff" Ai
 \iff
 endsnippet
@@ -727,18 +756,13 @@ snippet curly "mathscr" iA
 endsnippet
 
 context "math()"
-snippet norm "norm" iA
-\norm{${1:$VISUAL}}$0
-endsnippet
-
-context "math()"
 snippet tt "text" iA
 \text{$1}$0
 endsnippet
 
 priority 1000000
 context "math()"
-snippet "bm([a-zA-Z01])" "bm{}" rwA
+snippet "bm([a-zA-Z01]+)" "bm{}" rwA
 \bm{`!p snip.rv=match.group(1)`}
 endsnippet
 
@@ -769,8 +793,13 @@ snippet lr( "left( right)" i
 endsnippet
 
 snippet lr| "left| right|" i
-\left| ${1:${VISUAL}} \right| $0
+\left| ${1:${visual}} \right| $0
 endsnippet
+
+snippet r| "derivative eval at" iA
+\Bigr|_{$1} $0
+endsnippet
+
 
 snippet lr{ "left\{ right\}" i
 \left\\{ ${1:${VISUAL}} \right\\} $0
