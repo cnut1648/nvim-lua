@@ -236,6 +236,7 @@ vim.cmd [[
 autocmd FileType tex inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
 autocmd FileType tex nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
 autocmd FileType tex inoremap <C-s> <Esc>: silent exec '.!python ~/.config/nvim/save_screenshot.py "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>
+autocmd FileType tex nnoremap <C-s> : silent exec '.!python ~/.config/nvim/edit_screenshot.py "'.b:vimtex.root.'/figures/"'<CR><CR>:redraw!<CR>
 ]]
 
 -- todo comments, https://github.com/folke/todo-comments.nvim

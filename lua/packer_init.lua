@@ -312,6 +312,13 @@ return packer.startup(function(use)
     'lervag/vimtex',
   }
 
+  -- https://github.com/preservim/vim-markdown
+  use {
+    'preservim/vim-markdown',
+    requires = {'godlygeek/tabular'}
+  }
+
+  -- live preview of markdown
   use {
     "frabjous/knap",
     config = function()

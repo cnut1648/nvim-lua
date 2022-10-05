@@ -55,6 +55,8 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 Ensure `texlab` is installed for LSP
 
+To enable vimtex on markdown, symlink `snip/tex.snippets`
+
 New text objects are `c` (commands eg `\textbf`); `d` (delimiters eg `( x + y)`, also `\big(\big)`); `e` (environment eg `align`); `$` (inline math mode); `P` (sections); `m` (items in `enumerate` or `itemize`)
 
 Commands include
@@ -90,3 +92,6 @@ Commands include
 - In insert mode first type figure filename then `<C-f>` to insert figures by inkscape; `<C-f>` in normal mode to edit figures. More details ref to [Gilles Castel](https://github.com/gillescastel/inkscape-figures). Must run `inks cape-figures watch` first.
 
 - In insert mode first take a screenshot, then type figure name, hit `<C-s>` and it will automatically append screenshot
+
+
+$$

@@ -64,6 +64,7 @@ map={
   "lemma": "lemma",
   "prf": "prf",
   "example": "ex",
+  "question": "Q",
   "definition": "def",
 }
 if len(t[2]) == 0:
@@ -121,11 +122,6 @@ snippet ali "Align" bA
 endsnippet
 
 context "math()"
-snippet cvec "column vector" iA
-\begin{pmatrix} $1 \\\\ ${2:\\vdots} \end{pmatrix}$0
-endsnippet
-
-context "math()"
 snippet case "cases" wA
 \begin{cases}
 	$1
@@ -162,6 +158,10 @@ snippet optim "optim template" iA
 \end{align*}$0
 endsnippet
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                          matrix                          │
+# ╰──────────────────────────────────────────────────────────╯
+
 snippet pmat "pmat" iA
 \begin{pmatrix} $1 \end{pmatrix} $0
 endsnippet
@@ -169,6 +169,46 @@ endsnippet
 snippet bmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix} $0
 endsnippet
+
+
+context "math()"
+snippet cvec "column vector" iA
+\begin{pmatrix} $1 \\\\ ${2:\\vdots} \end{pmatrix}$0
+endsnippet
+
+priority 100000
+context "math()"
+snippet "eye(\d)" "eye matrix" irA
+\left(
+\begin{array}{`!p snip.rv='c'*int(match.group(1))`}
+`!p
+from math import floor
+n_rows = n_cols = int(match.group(1))
+ret = ""
+pos_0_x, pos_0_y = n_rows // 2, n_rows // 2
+pos_0_x, pos_0_y = pos_0_x + 1, pos_0_y - 1 # adjust
+for row in range(n_rows):
+	for col in range(n_cols):
+		# 0
+		if (row == pos_0_x and col == pos_0_y) or (row == pos_0_y and col == pos_0_x):
+			ret += r" \text{\huge0} "
+		elif row == col == 0 or row == col == n_rows - 1:
+			ret += " 1 "
+		elif row == col:
+			ret += r" \ddots "
+		else:
+			ret += " "
+		if col != n_cols - 1:
+			ret += "&"
+	# end of row
+	if row != n_rows - 1:
+		ret += r"\\" + "\n"
+snip.rv=ret
+`
+\end{array}
+\right)
+endsnippet
+
 # ╭──────────────────────────────────────────────────────────╮
 # │                          Greek                           │
 # ╰──────────────────────────────────────────────────────────╯
@@ -180,6 +220,16 @@ endsnippet
 context "math()"
 snippet Sig "Sigma" iA
 \Sigma
+endsnippet
+
+context "math()"
+snippet lam "lambda" iA
+\lambda
+endsnippet
+
+context "math()"
+snippet Lam "Lambda" iA
+\Lambda
 endsnippet
 
 context "math()"
@@ -575,10 +625,14 @@ snippet tu "to the ... power" iA
 endsnippet
 
 context "math()"
-snippet te "to the ... power" iA
+snippet tq "to the ... power" iA
 ^{($1)}$0
 endsnippet
 
+context "math()"
+snippet ts "star" iA
+^*
+endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                        subscript                         │
 # ╰──────────────────────────────────────────────────────────╯
@@ -701,7 +755,7 @@ snippet bb "bold" i
 \textbf{${1:${VISUAL}}}
 endsnippet
 
-snippet code "code" iA
+snippet codet "code" iA
 \texttt{${1:${VISUAL}}}
 endsnippet
 
@@ -780,8 +834,8 @@ endsnippet
 # │                        delimiter                         │
 # ╰──────────────────────────────────────────────────────────╯
 context "math()"
-snippet () "left( right)" iA
-\left( ${1:${VISUAL}} \right) $0
+snippet evalat "|_" iA
+\Bigr|_{$1} $0
 endsnippet
 
 snippet lr "left( right)" i
@@ -794,10 +848,6 @@ endsnippet
 
 snippet lr| "left| right|" i
 \left| ${1:${visual}} \right| $0
-endsnippet
-
-snippet r| "derivative eval at" iA
-\Bigr|_{$1} $0
 endsnippet
 
 
