@@ -152,9 +152,7 @@ return packer.startup(function(use)
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('gitsigns').setup{}
-    end
+    config = 'require("gitsigns").setup()',
   }
 
   -- Dashboard (start screen)
@@ -223,6 +221,23 @@ return packer.startup(function(use)
     end
   }
 
+  -- fold color
+  -- https://github.com/kevinhwang91/nvim-ufo
+  use {
+    'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async',
+    config = function()
+      vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      require('ufo').setup()
+    end
+  }
+
+
   -- trim empty lines on save
   -- https://github.com/cappyzawa/trim.nvim
   use {
@@ -258,7 +273,10 @@ return packer.startup(function(use)
   }
 
   -- https://github.com/axieax/urlview.nvim
-  use "axieax/urlview.nvim"
+  use {
+    "axieax/urlview.nvim",
+    config = 'require("urlview").setup()',
+  }
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          motion                          │
@@ -375,9 +393,7 @@ return packer.startup(function(use)
   -- https://github.com/numToStr/Comment.nvim
   use {
     'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
+    config = 'require("Comment").setup()',
   }
 
   -- Autopair

@@ -50,3 +50,15 @@ linearize
 bip
 timestep
 tradeoff
+logit
+coeff
+Weisfieler
+agg
+alg
+衡量
+hparam
+downweight
+vec
+Laplacians
+Unnormalized
+misclasify

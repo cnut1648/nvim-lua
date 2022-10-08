@@ -63,7 +63,7 @@ map={
   "theorem": "th",
   "lemma": "lemma",
   "prf": "prf",
-  "example": "ex",
+  "expl": "ex",
   "question": "Q",
   "definition": "def",
 }
@@ -166,7 +166,8 @@ snippet pmat "pmat" iA
 \begin{pmatrix} $1 \end{pmatrix} $0
 endsnippet
 
-snippet bmat "bmat" iA
+# bmat conflict with bm{at}
+snippet brmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix} $0
 endsnippet
 
@@ -329,6 +330,7 @@ snippet xx "cross" iA
 \times
 endsnippet
 
+context "math()"
 priority 100
 snippet ** "cdot" iA
 \cdot
@@ -630,7 +632,7 @@ snippet tq "to the ... power" iA
 endsnippet
 
 context "math()"
-snippet ts "star" iA
+snippet tst "star" iA
 ^*
 endsnippet
 # ╭──────────────────────────────────────────────────────────╮
