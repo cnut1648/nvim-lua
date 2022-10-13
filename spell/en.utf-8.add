@@ -62,3 +62,13 @@ vec
 Laplacians
 Unnormalized
 misclasify
+nonneg
+init
+Laplacian
+param
+interpolant
+acc
+Runge
+braket
+algoritm
+satisify

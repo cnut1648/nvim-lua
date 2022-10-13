@@ -29,13 +29,12 @@ endsnippet
 snippet alg "algorithm" b
 \begin{algorithm}[H]
 \caption{$1} \label{alg:`!p snip.rv = t[1].replace(' ', '_').lower()`}
-\hspace*{\algorithmicindent} \textbf{Input}: $2 \\\\
-\hspace*{\algorithmicindent} \textbf{Output}: $3
 \begin{algorithmic}[1]
-    \LineComment Init poison
+	\Require ${2:input}
+	\Ensure ${3:output}
+    \LComment{Init poison}
     \State Hello
-	\For{$x \in \R$}  \label{lst:line:gen_start}
-            \LineComment Use $\psi_t^x$ to generate poison triggers
+	\ForAll{$x \in \R$}  \label{lst:line:gen_start}
             \State $b^x = \text{Gumbel-Softmax}(\psi_t^x)$
 	\EndFor
 \end{algorithmic}
@@ -121,6 +120,14 @@ snippet ali "Align" bA
 .\end{align*}
 endsnippet
 
+snippet arrow "witharrow" bA
+\[
+\begin{WithArrows}
+    ${1:${VISUAL}}
+\end{WithArrows}
+\]
+endsnippet
+
 context "math()"
 snippet case "cases" wA
 \begin{cases}
@@ -151,13 +158,30 @@ $0
 endsnippet
 
 context "math()"
-snippet optim "optim template" iA
+snippet optimA "optim template" iA
 \begin{align*}
 \\${1:min} \\ & $2 \\\\
 \st \\ & $3
 \end{align*}$0
 endsnippet
 
+# ╭──────────────────────────────────────────────────────────╮
+# │                          algoritm                        │
+# ╰──────────────────────────────────────────────────────────╯
+
+snippet AFOR "for" iA
+\For{$1}
+	\State $2
+\EndFor
+$0
+endsnippet
+
+snippet AIF "for" iA
+\If{$1}
+	\State $2
+\EndIf
+$0
+endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                          matrix                          │
 # ╰──────────────────────────────────────────────────────────╯
@@ -214,6 +238,36 @@ endsnippet
 # │                          Greek                           │
 # ╰──────────────────────────────────────────────────────────╯
 context "math()"
+snippet rrr "gamma" iA
+\gamma
+endsnippet
+
+context "math()"
+snippet RRR "gamma" iA
+\Gamma
+endsnippet
+
+context "math()"
+snippet zzz "zeta" iA
+\zeta
+endsnippet
+
+context "math()"
+snippet pps "psi" iA
+\psi
+endsnippet
+
+context "math()"
+snippet ppp "phi" iA
+\phi
+endsnippet
+
+context "math()"
+snippet PPP "phi" iA
+\Phi
+endsnippet
+
+context "math()"
 snippet sig "sigma" iA
 \sigma
 endsnippet
@@ -240,6 +294,14 @@ endsnippet
 
 snippet lll "l" iA
 \ell
+endsnippet
+
+snippet aaa "\alpha" iA
+\alpha
+endsnippet
+
+snippet bbb "\beta" iA
+\beta
 endsnippet
 
 context "math()"
@@ -523,15 +585,22 @@ snippet -> "to" iA
 \to
 endsnippet
 
+priority 100
+context "math()"
+snippet <- "gets" iA
+\gets
+endsnippet
+
 priority 1000
 context "math()"
 snippet --> "longto" iA
 \longrightarrow
 endsnippet
 
+# ie <->, sub with gets first
 priority 200
 context "math()"
-snippet <-> "leftrightarrow" iA
+snippet \gets> "leftrightarrow" iA
 \leftrightarrow
 endsnippet
 
@@ -548,12 +617,10 @@ snippet << "<<" iA
 \ll
 endsnippet
 
-priority 10
 snippet iid~~ "~" iA
 \overset{iid}{\sim}
 endsnippet
 
-priority 1
 snippet ~~ "~" iA
 \sim
 endsnippet
