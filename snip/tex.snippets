@@ -20,10 +20,25 @@ endglobal
 # ╭──────────────────────────────────────────────────────────╮
 # │                          env                             │
 # ╰──────────────────────────────────────────────────────────╯
+snippet komatemplate "start new tex file" b
+\documentclass{scrreprt}
+\input{../preamble.tex}
+
+\begin{document}
+\end{document}
+endsnippet
+
 context "{'columns': 0}"
 post_jump "create_row_placeholders(snip)"
 snippet "tr(\d+)" "latex table row variable, eg tr8 => & & & & & & & &" br
 `!p snip.context['columns'] = match.group(1)`
+endsnippet
+
+snippet sidebyside "side by side minipage" b
+\begin{minipage}[t]{0.46\textwidth} % align at *t*op
+\end{minipage}\hfill % leave as many space between as possible
+\begin{minipage}[t]{0.46\textwidth}
+\end{minipage}
 endsnippet
 
 snippet alg "algorithm" b
@@ -42,9 +57,9 @@ snippet alg "algorithm" b
 endsnippet
 
 snippet prftwoway "two way proof" bA
-\begin{itemize}
-	\item [\implies] $1
-	\item [\impliedby] $2
+\begin{itemize}[wide=\parindent]
+	\item [($\implies$)] $1
+	\item [($\impliedby)] $2
 \end{itemize}
 $0
 endsnippet
@@ -80,10 +95,13 @@ snippet table "Table environment" b
 \begin{table}[${1:htpb}]
 	\centering
 	\caption{${2:caption}}
-	\label{tab:${3:label}}
-	\begin{tabular}{${5:c}}
-	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
-	\end{tabular}
+	\label{tab:`!p snip.rv= t[2].replace(' ', '_').replace('$', '').lower()`}
+	\begin{NiceTabular}[hvlines,baseline=2,cell-space-limits=1pt]{c|c|c}
+		\RowStyle{\bfseries}
+		header \\
+		\hline\hline
+        rows
+	\end{NiceTabular}
 \end{table}
 endsnippet
 
@@ -93,6 +111,24 @@ snippet fig "Figure environment" b
 	${2:\includegraphics[width=0.8\textwidth]{$3}}
 	\caption{${4:$3}}
 	\label{fig:${5:${3/\W+/-/g}}}
+\end{figure}
+endsnippet
+
+snippet subcaption "subcaption" b
+\begin{figure}[ht]
+\centering
+\begin{subcaptionblock}{0.45\linewidth}
+	\centering
+    \includegraphics[width=\linewidth]{}
+    \caption{}
+    \label{}
+\end{subcaptionblock}%   %% use \hfill here
+\begin{subcaptionblock}{0.45\linewidth}
+	\centering
+    \includegraphics[width=\linewidth]{}
+    \caption{}
+    \label{}
+\end{subcaptionblock}
 \end{figure}
 endsnippet
 
@@ -157,7 +193,6 @@ snippet nn "Tikz node" w
 $0
 endsnippet
 
-context "math()"
 snippet optimA "optim template" iA
 \begin{align*}
 \\${1:min} \\ & $2 \\\\
@@ -198,7 +233,7 @@ endsnippet
 
 context "math()"
 snippet cvec "column vector" iA
-\begin{pmatrix} $1 \\\\ ${2:\\vdots} \end{pmatrix}$0
+\begin{pmatrix} $1 \\\\ ${2:\\vdots} ${3:\\\\}  \end{pmatrix}$0
 endsnippet
 
 priority 100000
@@ -243,6 +278,11 @@ snippet rrr "gamma" iA
 endsnippet
 
 context "math()"
+snippet tau "tau" iA
+\tau
+endsnippet
+
+context "math()"
 snippet RRR "gamma" iA
 \Gamma
 endsnippet
@@ -255,6 +295,11 @@ endsnippet
 context "math()"
 snippet pps "psi" iA
 \psi
+endsnippet
+
+context "math()"
+snippet PPS "Psi" iA
+\Psi
 endsnippet
 
 context "math()"
@@ -571,10 +616,17 @@ endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                          arrow                           │
 # ╰──────────────────────────────────────────────────────────╯
+context "math()"
+snippet t== "def as" Ai
+\triangleq
+endsnippet
+
+context "math()"
 snippet => "implies" Ai
 \implies
 endsnippet
 
+context "math()"
 snippet =< "implied by" Ai
 \impliedby
 endsnippet
@@ -654,16 +706,13 @@ snippet EE "geq" iA
 \exists
 endsnippet
 
-snippet == "equals" iA
-&= $1 \\\\
-endsnippet
-
 snippet != "equals" iA
 \neq
 endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                       superscript                        │
 # ╰──────────────────────────────────────────────────────────╯
+context "math()"
 snippet TT "transpose" iA
 ^T
 endsnippet
@@ -779,6 +828,11 @@ snippet __ "subscript" iA
 _{$1}$0
 endsnippet
 
+context "math()"
+snippet sf "subscript" iA
+_{$1}$0
+endsnippet
+
 snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
@@ -828,9 +882,12 @@ snippet codet "code" iA
 \texttt{${1:${VISUAL}}}
 endsnippet
 
-context "math()"
 snippet tcolor "textcolor" iA
 \textcolor{${1:red}}{${2:${VISUAL}}}
+endsnippet
+
+snippet tbfcolor "textcolor + bf" iA
+\textcolor{${1:red}}{\textbf{${2:${VISUAL}}}}
 endsnippet
 
 context "math()"
@@ -849,7 +906,7 @@ snippet param "theta" iA
 endsnippet
 
 context "math()"
-snippet "m(X|Y|F)" "mathcal " riA
+snippet "m(X|Y|F|N)" "mathcal " riA
 \mathcal{`!p snip.rv = match.group(1)`}
 endsnippet
 
@@ -880,13 +937,37 @@ endsnippet
 
 context "math()"
 snippet tt "text" iA
-\text{$1}$0
+\text{${1:${VISUAL}}}$0
 endsnippet
 
-priority 1000000
 context "math()"
 snippet "bm([a-zA-Z01]+)" "bm{}" rwA
 \bm{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "\\bm{m}u" "bm mu" rwA
+\bm{\mu}
+endsnippet
+
+context "math()"
+snippet "\\bm{e}ps" "bm eps" rwA
+\bm{\epsilon}
+endsnippet
+
+context "math()"
+snippet "\\bm{a}aa" "bm alpha" rwA
+\bm{\alpha}
+endsnippet
+
+context "math()"
+snippet "\\bm{b}bb" "bm beta" rwA
+\bm{\beta}
+endsnippet
+
+context "math()"
+snippet "\\bm{p}aram" "bm theta" rwA
+\bm{\theta}
 endsnippet
 
 context "math()"
