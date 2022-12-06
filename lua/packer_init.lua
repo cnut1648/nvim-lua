@@ -312,7 +312,12 @@ return packer.startup(function(use)
 
   -- better search highligh UI
   -- https://github.com/kevinhwang91/nvim-hlslens
-  use {'kevinhwang91/nvim-hlslens'}
+  use {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      require('hlslens').setup()
+    end
+  }
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          filetype                        │

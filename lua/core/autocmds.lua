@@ -19,7 +19,7 @@ autocmd('TextYankPost', {
 
 -- Remove whitespace on save
 autocmd('BufWritePre', {
-  pattern = '*',
+  pattern = '',
   command = ":%s/\\s\\+$//e"
 })
 
@@ -60,7 +60,7 @@ autocmd('TermOpen', {
 })
 
 autocmd('TermOpen', {
-  pattern = '*',
+  pattern = '',
   command = 'startinsert'
 })
 

@@ -25,8 +25,17 @@ require('onedark').setup {
 }
 require('onedark').load()
 
--- statusline color schemes:
--- import with: require('colors').colorscheme_name
+--[[
+Statusline color schemes.
+Import the following color schemes in your statusline.lua file
+with: `require('core/colors').colorscheme_name` where the colors scheme name
+is the value of the variables below.
+e.g.: `local colors = require('core/colors').onedark_dark
+See: `core/statusline.lua`
+The color schemes below are created by following the "palette" file color
+schemes. Color names are adapted to maintain a pattern, original names can be
+different.
+--]]
 local M = {}
 
 -- Theme: OneDark (dark)
