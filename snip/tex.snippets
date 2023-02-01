@@ -59,7 +59,7 @@ endsnippet
 snippet prftwoway "two way proof" bA
 \begin{itemize}[wide=\parindent]
 	\item [($\implies$)] $1
-	\item [($\impliedby)] $2
+	\item [($\impliedby$)] $2
 \end{itemize}
 $0
 endsnippet
@@ -200,6 +200,25 @@ snippet optimA "optim template" iA
 \end{align*}$0
 endsnippet
 
+snippet codesnippet "Code in latex" w
+\begin{lstlisting}[language=Python, mathescape, frame = tlBR, caption={
+numpy code
+}, label={
+lst:
+}
+]
+def general_finite_difference(m, p):
+    """
+    f' = sum(w  * f(x))
+    where x is m evenly spaced points, f p-deg poly
+    """
+    A = np.vander(np.linspace(-(m-1)/2, (m-1)/2, m), p+1, increasing=True)
+    $e_2$ = np.zeros(p+1)
+    e2[1] = 1
+    w = e2.T @ np.linalg.pinv(A)
+    return w
+\end{lstlisting}
+endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                          algoritm                        │
 # ╰──────────────────────────────────────────────────────────╯
@@ -225,6 +244,10 @@ snippet pmat "pmat" iA
 \begin{pmatrix} $1 \end{pmatrix} $0
 endsnippet
 
+snippet pautomat "p automatrix" iA
+\pAutoNiceMatrix{3-3}{$1_{\arabic{iRow}\arabic{jCol}}}
+endsnippet
+
 # bmat conflict with bm{at}
 snippet brmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix} $0
@@ -234,6 +257,11 @@ endsnippet
 context "math()"
 snippet cvec "column vector" iA
 \begin{pmatrix} $1 \\\\ ${2:\\vdots} ${3:\\\\}  \end{pmatrix}$0
+endsnippet
+
+context "math()"
+snippet cbvec "column vector" iA
+\begin{bmatrix} $1 \\\\ ${2:\\vdots} ${3:\\\\}  \end{bmatrix}$0
 endsnippet
 
 priority 100000
@@ -445,7 +473,7 @@ endsnippet
 
 priority 100000
 context "math()"
-snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+snippet '(?<!\\)(sin|mu|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -613,6 +641,10 @@ snippet us "underset" i
 \underset{${1:up}}{${2:${VISUAL}}}$0
 endsnippet
 
+context "math()"
+snippet sk "substack" iA
+\substack{$1 \\\\ $2}$0
+endsnippet
 # ╭──────────────────────────────────────────────────────────╮
 # │                          arrow                           │
 # ╰──────────────────────────────────────────────────────────╯
@@ -669,6 +701,23 @@ snippet << "<<" iA
 \ll
 endsnippet
 
+snippet ~> ">" iA
+\succ
+endsnippet
+
+snippet \succ= "=>" iA
+\succeq
+endsnippet
+
+snippet ~< "<" iA
+\prec
+endsnippet
+
+snippet \prec= "<=" iA
+\preceq
+endsnippet
+
+priority 1000
 snippet iid~~ "~" iA
 \overset{iid}{\sim}
 endsnippet
@@ -755,7 +804,7 @@ endsnippet
 # │                        subscript                         │
 # ╰──────────────────────────────────────────────────────────╯
 context "math()"
-snippet '([A-Za-z])(\d)' "auto subscript" wrA
+snippet '([A-Za-z}])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
@@ -767,6 +816,11 @@ endsnippet
 context "math()"
 snippet "([a-zA-Z])_\{(\d+)\}(\d)" "auto subscript3 a_{12}3 => a_{123}" Ar
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2) + match.group(3)`}
+endsnippet
+
+context "math()"
+snippet "([A-Za-z]})([ijk])" "\bm{x}i => \bm{x}_{i}" Ar
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
 context "math()"
@@ -906,13 +960,18 @@ snippet param "theta" iA
 endsnippet
 
 context "math()"
-snippet "m(X|Y|F|N)" "mathcal " riA
+snippet "m(X|Y|F|N|D|O)" "mathcal " riA
 \mathcal{`!p snip.rv = match.group(1)`}
 endsnippet
 
 context "math()"
 snippet mcal "mathcal" iA
 \mathcal{$1}$0
+endsnippet
+
+context "math()"
+snippet mbb "mathbb" iA
+\mathbb{$1}$0
 endsnippet
 
 context "math()"
@@ -940,6 +999,7 @@ snippet tt "text" iA
 \text{${1:${VISUAL}}}$0
 endsnippet
 
+priority 10000000
 context "math()"
 snippet "bm([a-zA-Z01]+)" "bm{}" rwA
 \bm{`!p snip.rv=match.group(1)`}
@@ -948,6 +1008,11 @@ endsnippet
 context "math()"
 snippet "\\bm{m}u" "bm mu" rwA
 \bm{\mu}
+endsnippet
+
+context "math()"
+snippet "\\bm{l}am" "bm lam" rwA
+\bm{\lambda}
 endsnippet
 
 context "math()"
