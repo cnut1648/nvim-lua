@@ -335,6 +335,12 @@ snippet ppp "phi" iA
 \phi
 endsnippet
 
+priority 100000000
+context "math()"
+snippet vppp "phi" iA
+\varphi
+endsnippet
+
 context "math()"
 snippet PPP "phi" iA
 \Phi
@@ -417,6 +423,16 @@ snippet dm "Math" wA
 \[
 ${1:${VISUAL}}
 \] $0
+endsnippet
+
+context "math()"
+snippet 'vec([vbaop])' "vector" rwA
+\vec{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet 'vec{b}m([vbaof])' "vector" rwA
+vec{\bm{`!p snip.rv = match.group(1)`}}
 endsnippet
 
 snippet \1 "indicator" iA
@@ -638,7 +654,7 @@ endsnippet
 
 context "math()"
 snippet us "underset" i
-\underset{${1:up}}{${2:${VISUAL}}}$0
+\underset{${1:down}}{${2:${VISUAL}}}$0
 endsnippet
 
 context "math()"
@@ -717,11 +733,12 @@ snippet \prec= "<=" iA
 \preceq
 endsnippet
 
-priority 1000
+priority 10000
 snippet iid~~ "~" iA
 \overset{iid}{\sim}
 endsnippet
 
+priority 1
 snippet ~~ "~" iA
 \sim
 endsnippet
