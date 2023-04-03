@@ -1,4 +1,5 @@
 # nvim-lua
+
 My dot file for nvim, `init.vim.bak` is my old vimscript config; starting to use `init.lua` on Sep 10 2022.
 
 Check startup time with
@@ -9,6 +10,21 @@ nvim --startuptime startup.log -c exit && tail -100 startup.log
 ## Install
 
 Make sure `neovim-git` is installed via `yay`. Then
+```shell
+git clone https://github.com/cnut1648/nvim-lua ~/.config/nvim
+```
+
+And install [lazy.nvim](https://github.com/folke/lazy.nvim#-installation).
+Lastly use `nvim` to install plugins.
+
+To install [inkscape-watch](https://github.com/cnut1648/inkscape-figures):
+```shell
+git clone https://github.com/cnut1648/inkscape-figures.git
+cd inkscape-figures
+pip install -e .
+```
+
+Also create a symlink for `tex.snippets` in `snip/`.
 
 ## Useful keybinds
 
@@ -54,6 +70,9 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 - `<C-t>` open terminal
 
+- `<C-s>` to insert screenshot (saved in clipboard) in `i` mode; when in `n` mode use `<C-s>` again to replace screenshot with new one (in clipboard). A `rofi` selection panel will be open.
+
+- Similar to `<C-s>`, use [inkscape-figures](https://github.com/cnut1648/inkscape-figures)'s `<C-f>` to create/update inkscape figures. Must run `inkscape-figures watch` beforehand.
 
 ## Tex
 

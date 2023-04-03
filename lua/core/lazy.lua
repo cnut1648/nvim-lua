@@ -1,60 +1,47 @@
 -----------------------------------------------------------
 -- Plugin manager configuration file
 -----------------------------------------------------------
--- Plugin manager: packer.nvim
--- url: https://github.com/wbthomason/packer.nvim
--- Automatically install packer
 
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+-- Plugin manager: lazy.nvim
+-- URL: https://github.com/folke/lazy.nvim
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path
+-- For information about installed plugins see the README:
+-- neovim-lua/README.md
+-- https://github.com/brainfucksec/neovim-lua#readme
+
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
   })
-  vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
 end
-
--- Autocommand that reloads neovim whenever you save the packer_init.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packer_init.lua source <afile> | PackerSync
-  augroup end
-]]
+vim.opt.rtp:prepend(lazypath)
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, 'packer')
+local status_ok, lazy = pcall(require, 'lazy')
 if not status_ok then
   return
 end
 
--- Install plugins
-return packer.startup(function(use)
-  -- Add you plugins here:
-
-  -- https://github.com/wbthomason/packer.nvim
-  use 'wbthomason/packer.nvim' -- packer can manage itself
-
-  -- quicker loading
-  -- https://github.com/lewis6991/impatient.nvim
-  use 'lewis6991/impatient.nvim'
-
+lazy.setup({
+  spec = {
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                           lsp                            │
 --  ╰──────────────────────────────────────────────────────────╯
   -- LSP
-  use 'neovim/nvim-lspconfig'
+  {'neovim/nvim-lspconfig'},
 
   -- Autocomplete
-  use {
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    event = "InsertEnter",
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       "quangnguyen30192/cmp-nvim-ultisnips",
       config = function()
@@ -68,32 +55,31 @@ return packer.startup(function(use)
         }
       end,
     },
-  }
+  },
 
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       require('nvim-treesitter.install').update({ with_sync = true })
     end,
-  }
+  },
 
   -- show surrounding def & block
   -- https://github.com/SmiteshP/nvim-navic
-  use {
+  {
     "SmiteshP/nvim-navic",
-    requires = "neovim/nvim-lspconfig"
-  }
-
+    dependencies = {"neovim/nvim-lspconfig"},
+  },
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        UI                                │
 --  ╰──────────────────────────────────────────────────────────╯
   -- Icons, fork of vim-devicons
   -- https://github.com/kyazdani42/nvim-web-devicons
-  use 'kyazdani42/nvim-web-devicons'
+  {'kyazdani42/nvim-web-devicons', lazy = true},
 
 
   -- https://github.com/folke/which-key.nvim
-  use {
+  {
     "folke/which-key.nvim",
     config = function()
       require("which-key").setup({
@@ -102,116 +88,114 @@ return packer.startup(function(use)
         -- refer to the configuration section below
       })
       end
-  }
+  },
 
-  use {
+  {
     'mrjones2014/legendary.nvim',
     config = function()
       require('legendary').setup()
     end
-  }
+  },
 
-  use 'skywind3000/vim-quickui'
+  {'skywind3000/vim-quickui'},
 
   -- buffer management
   -- https://github.com/akinsho/bufferline.nvim
   -- see :h bufferline-usage
-  use {
+  {
     'akinsho/bufferline.nvim',
-    tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require("bufferline").setup{
+    tag = "v2.*", dependencies = {'kyazdani42/nvim-web-devicons'},
+    opts = {
         options = {
             -- pin tab
             middle_mouse_command = ':BufferLineTogglePin'
         }
-      }
-    end
-  }
+    }
+  },
 
   -- replace input and select UI
   -- https://github.com/stevearc/dressing.nvim
-  use 'stevearc/dressing.nvim'
+  {'stevearc/dressing.nvim'},
 
   -- Tag viewer
   -- use ctags in sys
   -- https://github.com/preservim/tagbar
-  use 'preservim/tagbar'
+  {'preservim/tagbar'},
 
   -- UndoTree
-  use 'mbbill/undotree'
+  {'mbbill/undotree'},
 
   -- Statusline
   -- https://github.com/feline-nvim/feline.nvim
-  use {
+  {
     'feline-nvim/feline.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+  },
 
   -- git labels
-  use {
+  {
     'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = 'require("gitsigns").setup()',
-  }
+  },
 
   -- Dashboard (start screen)
   -- https://github.com/goolord/alpha-nvim
-  use {
+  {
     'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+  },
 
   -- scroll bar w/ diagnostic
   -- https://github.com/petertriho/nvim-scrollbar
-  use {
+  {
     "petertriho/nvim-scrollbar",
     config = function()
       require("scrollbar").setup{}
     end
-  }
+  },
 
   -- manage window by only one key
   -- https://gitlab.com/yorickpeterse/nvim-window.git
-  use "https://gitlab.com/yorickpeterse/nvim-window.git"
+  {"https://gitlab.com/yorickpeterse/nvim-window.git"},
 
   -- each active window is golden ratio
   -- https://github.com/dm1try/golden_size
-  use 'dm1try/golden_size'
+  {'dm1try/golden_size'},
 
-  use {
-    'norcalli/nvim-colorizer.lua',
+  {
+    'NvChad/nvim-colorizer.lua',
     config = function()
       require'colorizer'.setup()
     end
-  }
+  },
 
   -- zen mode
   -- https://github.com/junegunn/goyo.vim
-  use "junegunn/goyo.vim"
+  {"junegunn/goyo.vim"},
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
 --  ╰──────────────────────────────────────────────────────────╯
   -- show Indent line
   -- https://github.com/lukas-reineke/indent-blankline.nvim
-  use 'lukas-reineke/indent-blankline.nvim'
+  {'lukas-reineke/indent-blankline.nvim'},
 
   -- https://github.com/LudoPinelli/comment-box.nvim
-  use "LudoPinelli/comment-box.nvim"
+  {"LudoPinelli/comment-box.nvim"},
 
   -- Rainbow pairs
   -- https://github.com/p00f/nvim-ts-rainbow
-  use 'p00f/nvim-ts-rainbow'
+  {'p00f/nvim-ts-rainbow'},
 
   -- highlight all occurences of selection
-  use 'RRethy/vim-illuminate'
+  {'RRethy/vim-illuminate'},
 
   -- highlight todos
   -- https://github.com/folke/todo-comments.nvim
-  use {
+  {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = {"nvim-lua/plenary.nvim"},
     config = function()
     require("todo-comments").setup {
       -- your configuration comes here
@@ -219,65 +203,62 @@ return packer.startup(function(use)
       -- refer to the configuration section below
     }
     end
-  }
+  },
 
   -- fold color
   -- https://github.com/kevinhwang91/nvim-ufo
-  use {
+  {
     'kevinhwang91/nvim-ufo',
-    requires = 'kevinhwang91/promise-async',
-  }
+     dependencies = {'kevinhwang91/promise-async'},
+  },
 
 
   -- trim empty lines on save
   -- https://github.com/cappyzawa/trim.nvim
-  use {
+  {
     'cappyzawa/trim.nvim',
-    config = function()
-      require('trim').setup({
-        disable = {'markdown'},
+    opts = {
+        fn_blocklist = {'markdown'},
         patterns = {
           [[%s/\s\+$//e]],           -- remove unwanted spaces
           [[%s/\($\n\s*\)\+\%$//]],  -- trim last line
           [[%s/\%^\n\+//]],          -- trim first line
           -- [[%s/\(\n\n\)\n\+/\1/]],   -- replace multiple blank lines with a single line
         }
-      })
-    end
-  }
+    }
+  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                       colorschema                        │
 --  ╰──────────────────────────────────────────────────────────╯
-  use 'navarasu/onedark.nvim'
-  use 'tanvirtin/monokai.nvim'
-  use { 'rose-pine/neovim', as = 'rose-pine' }
+  {'navarasu/onedark.nvim'},
+  {'tanvirtin/monokai.nvim'},
+  { 'rose-pine/neovim', name = 'rose-pine' },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          search                          │
 --  ╰──────────────────────────────────────────────────────────╯
   -- search integrate with fzf and fd
   -- https://github.com/nvim-telescope/telescope.nvim#pickers
-  use {
+  {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
+    dependencies = {'nvim-lua/plenary.nvim'}
+  },
 
   -- https://github.com/axieax/urlview.nvim
-  use {
+  {
     "axieax/urlview.nvim",
     config = 'require("urlview").setup()',
-  }
+  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          motion                          │
 --  ╰──────────────────────────────────────────────────────────╯
   -- smooth scrolling
   -- https://github.com/karb94/neoscroll.nvim
-  use {
+  {
     'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup({
+    opts = {
         -- All these keys will be mapped to their corresponding default scrolling animation
         mappings = {'<C-u>', '<C-d>', '<C-b>', -- '<C-f>',
                     '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
@@ -290,50 +271,46 @@ return packer.startup(function(use)
         post_hook = nil,             -- Function to run after the scrolling animation ends
         performance_mode = false,    -- Disable "Performance Mode" on all buffers.
         easing_function = "quadratic" -- quadratic accleration
-      })
-    end
-  }
+    }
+  },
 
   -- easy motion
   -- https://github.com/phaazon/hop.nvim
-  use {
+  {
     'phaazon/hop.nvim',
     branch = 'v2', -- optional but strongly recommended
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup {
+    opts = {
         keys = 'etovxqpdygfblzhckisuran',
         quit_key = '<ESC>',
         jump_on_sole_occurrence = true, -- if only hint a single item, jump directly
         case_insensitive = true
-      }
-    end
-  }
+    }
+  },
 
   -- better search highligh UI
   -- https://github.com/kevinhwang91/nvim-hlslens
-  use {
+  {
     'kevinhwang91/nvim-hlslens',
     config = function()
       require('hlslens').setup()
     end
-  }
+  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          filetype                        │
 --  ╰──────────────────────────────────────────────────────────╯
-  use {
+  {
     'lervag/vimtex',
-  }
+  },
 
   -- https://github.com/preservim/vim-markdown
-  use {
+  {
     'preservim/vim-markdown',
-    requires = {'godlygeek/tabular'}
-  }
+    dependencies = {'godlygeek/tabular'}
+  },
 
   -- live preview of markdown
-  use {
+  {
     "frabjous/knap",
     config = function()
       local gknapsettings = {
@@ -345,7 +322,7 @@ return packer.startup(function(use)
       }
       vim.g.knap_settings = gknapsettings
     end
-  }
+  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          fm                              │
@@ -353,30 +330,31 @@ return packer.startup(function(use)
 
   -- File explorer
   -- https://github.com/kevinhwang91/rnvimr
-  use {
+  {
     'kevinhwang91/rnvimr',
     config = function()
       vim.g.rnvimr_enable_ex = true
       vim.g.rnvimr_enable_picker = true
     end
-  }
+  },
+
   -- https://github.com/kyazdani42/nvim-tree.lua
-  use 'kyazdani42/nvim-tree.lua'
+  {'kyazdani42/nvim-tree.lua'},
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          edit                            │
 --  ╰──────────────────────────────────────────────────────────╯
   -- split lines, opposite of J
   -- https://github.com/AckslD/nvim-trevJ.lua
-  use {
+  {
     'AckslD/nvim-trevJ.lua',
     config = 'require("trevj").setup()',  -- optional call for configurating non-default filetypes etc
     -- lazy load
-    module = 'trevj',
-  }
+    lazy = true,
+  },
 
   -- https://github.com/max397574/better-escape.nvim
-  use {
+  {
     "max397574/better-escape.nvim",
     config = function()
       require("better_escape").setup({
@@ -384,29 +362,27 @@ return packer.startup(function(use)
         timeout = 1000
       })
     end,
-  }
+  },
 
   -- https://github.com/numToStr/Comment.nvim
-  use {
+  {
     'numToStr/Comment.nvim',
     config = 'require("Comment").setup()',
-  }
+  },
 
   -- Autopair
-  use {
+  {
     'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup{
+    opts = {
         disable_filetype = { "TelescopePrompt" }
-      }
-    end
-  }
+    }
+  },
 
   -- textobjs
   -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-  use {'nvim-treesitter/nvim-treesitter-textobjects'}
+  {'nvim-treesitter/nvim-treesitter-textobjects'},
 
-  use({
+  {
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
@@ -414,13 +390,13 @@ return packer.startup(function(use)
             -- Configuration here, or leave empty to use defaults
         })
     end
-  })
+  },
 
   -- snippet engine
   -- https://github.com/SirVer/ultisnips
-  use {
+  {
     'SirVer/ultisnips',
-    requires = {
+    dependencies = {
       -- predef snippets
       'honza/vim-snippets'
     },
@@ -431,7 +407,7 @@ return packer.startup(function(use)
         let g:UltiSnipsEditSplit="vertical"
       ]]
     end
-  }
+  },
 
 
 --  ╭──────────────────────────────────────────────────────────╮
@@ -439,23 +415,18 @@ return packer.startup(function(use)
 --  ╰──────────────────────────────────────────────────────────╯
   -- use sudo
   -- https://github.com/lambdalisue/suda.vim
-  use {
+  {
     'lambdalisue/suda.vim',
     config = function()
       vim.g.suda_smart_edit = true
       vim.api.nvim_set_keymap('c', 'w!!', ":w suda://%<CR>", { silent = true })
     end
-  }
+  },
 
-  use 'tjdevries/train.nvim'
+  {'tjdevries/train.nvim'},
 
   -- if fcitx chinese mode, when leave insert mode switch back to English
   -- https://github.com/h-hg/fcitx.nvim
-  use 'h-hg/fcitx.nvim'
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  {'h-hg/fcitx.nvim'},
+  }
+})

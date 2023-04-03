@@ -5,13 +5,12 @@
 --  ┗╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍┛
 
 -- Import Lua modules
-require('impatient') -- must be in the beginning
-require('packer_init')
-require('core/options')
+require('core/lazy')
 require('core/autocmds')
 require('core/keymaps')
 require('core/colors')
 require('core/statusline')
+require('core/options')
 require('plugins/nvim-tree')
 require('plugins/indent-blankline')
 require('plugins/nvim-cmp')
