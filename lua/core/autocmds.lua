@@ -30,6 +30,8 @@ autocmd('BufEnter', {
 })
 
 -- Settings for filetypes:
+--------------------------
+
 -- Disable line length marker
 augroup('setLineLength', { clear = true })
 autocmd('Filetype', {
@@ -49,6 +51,8 @@ autocmd('Filetype', {
 })
 
 -- Terminal settings:
+---------------------
+
 -- Open a Terminal on the right tab
 autocmd('CmdlineEnter', {
   command = 'command! Term :botright vsplit term://$SHELL'

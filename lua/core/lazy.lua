@@ -44,7 +44,8 @@ lazy.setup({
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       "quangnguyen30192/cmp-nvim-ultisnips",
-      config = function()
+    },
+    config = function()
         -- optional call to setup (see customization section)
         require("cmp_nvim_ultisnips").setup{
           filetype_source = "treesitter",
@@ -53,10 +54,10 @@ lazy.setup({
             return snippet.description
           end
         }
-      end,
-    },
+    end,
   },
 
+  -- interact with treesitter -- neovim parser
   {
     'nvim-treesitter/nvim-treesitter',
     build = function()
@@ -64,12 +65,38 @@ lazy.setup({
     end,
   },
 
-  -- show surrounding def & block
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                     statusline                           │
+--  ╰──────────────────────────────────────────────────────────╯
+  -- Statusline
+  -- fork of original https://github.com/feline-nvim/feline.nvim
+  -- https://github.com/freddiehaddad/feline.nvim
+  {
+    "freddiehaddad/feline.nvim",
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+  },
+
+  -- show surrounding def & block, used in statusline
   -- https://github.com/SmiteshP/nvim-navic
   {
     "SmiteshP/nvim-navic",
-    dependencies = {"neovim/nvim-lspconfig"},
+    dependencies = {"neovim/nvim-lspconfig", "freddiehaddad/feline.nvim"},
   },
+
+  -- buffer management
+  -- https://github.com/akinsho/bufferline.nvim
+  -- see :h bufferline-usage
+  {
+    'akinsho/bufferline.nvim',
+    version = "v3.*", dependencies = {'kyazdani42/nvim-web-devicons'},
+    opts = {
+        options = {
+            -- pin tab
+            middle_mouse_command = ':BufferLineTogglePin'
+        }
+    }
+  },
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        UI                                │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -90,6 +117,8 @@ lazy.setup({
       end
   },
 
+  -- search commands by :Legendary
+  -- https://github.com/mrjones2014/legendary.nvim
   {
     'mrjones2014/legendary.nvim',
     config = function()
@@ -98,20 +127,6 @@ lazy.setup({
   },
 
   {'skywind3000/vim-quickui'},
-
-  -- buffer management
-  -- https://github.com/akinsho/bufferline.nvim
-  -- see :h bufferline-usage
-  {
-    'akinsho/bufferline.nvim',
-    tag = "v2.*", dependencies = {'kyazdani42/nvim-web-devicons'},
-    opts = {
-        options = {
-            -- pin tab
-            middle_mouse_command = ':BufferLineTogglePin'
-        }
-    }
-  },
 
   -- replace input and select UI
   -- https://github.com/stevearc/dressing.nvim
@@ -124,13 +139,6 @@ lazy.setup({
 
   -- UndoTree
   {'mbbill/undotree'},
-
-  -- Statusline
-  -- https://github.com/feline-nvim/feline.nvim
-  {
-    'feline-nvim/feline.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-  },
 
   -- git labels
   {
@@ -159,10 +167,22 @@ lazy.setup({
   -- https://gitlab.com/yorickpeterse/nvim-window.git
   {"https://gitlab.com/yorickpeterse/nvim-window.git"},
 
-  -- each active window is golden ratio
-  -- https://github.com/dm1try/golden_size
-  {'dm1try/golden_size'},
+  -- each focused window is maximize automatically
+  -- https://github.com/anuvyklack/windows.nvim
+  { "anuvyklack/windows.nvim",
+   dependencies = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim"
+   },
+   config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+      require('windows').setup()
+   end
+  },
 
+  -- render color when see color code in terminal
   {
     'NvChad/nvim-colorizer.lua',
     config = function()
@@ -170,9 +190,16 @@ lazy.setup({
     end
   },
 
-  -- zen mode
-  -- https://github.com/junegunn/goyo.vim
-  {"junegunn/goyo.vim"},
+  -- config in plugins/nvim-navic.lua
+  -- https://github.com/SmiteshP/nvim-navbuddy
+  {
+    "SmiteshP/nvim-navbuddy",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim"
+		},
+  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
@@ -191,27 +218,54 @@ lazy.setup({
   -- highlight all occurences of selection
   {'RRethy/vim-illuminate'},
 
-  -- highlight todos
-  -- https://github.com/folke/todo-comments.nvim
-  {
-    "folke/todo-comments.nvim",
-    dependencies = {"nvim-lua/plenary.nvim"},
-    config = function()
-    require("todo-comments").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-    end
-  },
-
   -- fold color
   -- https://github.com/kevinhwang91/nvim-ufo
   {
-    'kevinhwang91/nvim-ufo',
-     dependencies = {'kevinhwang91/promise-async'},
+    "kevinhwang91/nvim-ufo",
+    dependencies = { "kevinhwang91/promise-async" },
+    event = "BufRead",
+    keys = {
+        { "zR", function() require("ufo").openAllFolds() end },
+        { "zM", function() require("ufo").closeAllFolds() end },
+        { "K", function()
+            local winid = require('ufo').peekFoldedLinesUnderCursor()
+            if not winid then
+                vim.lsp.buf.hover()
+            end
+        end }
+    },
+    opts = function(_, opts)
+      -- To show number of folded lines
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = ('  %d '):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, 'MoreMsg' })
+        return newVirtText
+      end
+      opts.fold_virt_text_handler = handler
+    end
   },
-
 
   -- trim empty lines on save
   -- https://github.com/cappyzawa/trim.nvim
@@ -228,12 +282,26 @@ lazy.setup({
     }
   },
 
+  -- colorful window container
+  -- https://github.com/nvim-zh/colorful-winsep.nvim
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinNew" },
+  },
+
+  -- use relative number in normal mode; absolute in insert mode
+  -- https://github.com/cpea2506/relative-toggle.nvim
+  {"cpea2506/relative-toggle.nvim"},
+
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                       colorschema                        │
 --  ╰──────────────────────────────────────────────────────────╯
   {'navarasu/onedark.nvim'},
   {'tanvirtin/monokai.nvim'},
-  { 'rose-pine/neovim', name = 'rose-pine' },
+  { "catppuccin/nvim", name = "catppuccin" },
+  { "rebelot/kanagawa.nvim" },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          search                          │
@@ -245,10 +313,13 @@ lazy.setup({
     dependencies = {'nvim-lua/plenary.nvim'}
   },
 
+  -- UrlView to view all urls; UrlView Lazy view all lazy plugin's url
   -- https://github.com/axieax/urlview.nvim
   {
     "axieax/urlview.nvim",
-    config = 'require("urlview").setup()',
+    opts = {
+      default_action = "system"
+    }
   },
 
 --  ╭──────────────────────────────────────────────────────────╮
@@ -324,6 +395,7 @@ lazy.setup({
     end
   },
 
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          fm                              │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -344,15 +416,19 @@ lazy.setup({
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          edit                            │
 --  ╰──────────────────────────────────────────────────────────╯
-  -- split lines, opposite of J
-  -- https://github.com/AckslD/nvim-trevJ.lua
+
+  -- split and rejoin lines
+  -- https://github.com/Wansmer/treesj
   {
-    'AckslD/nvim-trevJ.lua',
-    config = 'require("trevj").setup()',  -- optional call for configurating non-default filetypes etc
-    -- lazy load
-    lazy = true,
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      use_default_keymaps = false
+    }
   },
 
+  -- escape is jk, but will delay jjjjj
+  -- use this plugin to prevent
   -- https://github.com/max397574/better-escape.nvim
   {
     "max397574/better-escape.nvim",
@@ -382,9 +458,11 @@ lazy.setup({
   -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   {'nvim-treesitter/nvim-treesitter-textobjects'},
 
+  -- https://github.com/kylechui/nvim-surround
   {
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
     config = function()
         require("nvim-surround").setup({
             -- Configuration here, or leave empty to use defaults
@@ -410,6 +488,18 @@ lazy.setup({
   },
 
 
+	-- swap arguments
+  -- https://github.com/Wansmer/sibling-swap.nvim
+	{
+		'Wansmer/sibling-swap.nvim',
+		dependencies = { 'nvim-treesitter' },
+		keys = {
+      {"<C-.>", "<cmd>lua require('sibling-swap').swap_with_right()<cr>", desc="swap with right"},
+      {"<C-,>", "<cmd>lua require('sibling-swap').swap_with_left()<cr>", desc="swap with left"},
+		},
+	},
+
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                          utils                           │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -423,10 +513,15 @@ lazy.setup({
     end
   },
 
-  {'tjdevries/train.nvim'},
-
   -- if fcitx chinese mode, when leave insert mode switch back to English
   -- https://github.com/h-hg/fcitx.nvim
   {'h-hg/fcitx.nvim'},
+
+  -- cellular-automaton
+  -- :CellularAutomaton make_it_rain
+  -- or
+  -- :CellularAutomaton game_of_life
+  -- https://github.com/Eandrju/cellular-automaton.nvim
+  {'eandrju/cellular-automaton.nvim'},
   }
 })

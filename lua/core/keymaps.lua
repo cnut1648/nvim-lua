@@ -203,9 +203,6 @@ map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]])
 map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
 map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
--- trevJ https://github.com/AckslD/nvim-trevJ.lua
-map('n', 'gJ', "<cmd>lua require('trevj').format_at_cursor()<cr>")
-
 -- vimtext https://github.com/lervag/vimtex
 -- single shot complie + save current buffer
 map('n', '<leader>lc', '<Cmd>update<CR><Cmd>VimtexCompileSS<CR>')
@@ -213,21 +210,8 @@ map('n', '<leader>lc', '<Cmd>update<CR><Cmd>VimtexCompileSS<CR>')
 -- LSP
 map('n', '<C-]>', '<cmd>lua vim.lsp.buf.definition()<cr>')
 
--- snip
-vim.cmd[[
-" press <Tab> to expand or jump in a snippet. These can also be mapped separately
-" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
-inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-]]
+-- treesj https://github.com/Wansmer/treesj
+map('n', 'gJ', "<cmd>lua require('treesj').toggle()<cr>", {desc= "split or rejoin"})
 
 -- inkscape figure
 -- https://github.com/gillescastel/inkscape-figures
@@ -238,16 +222,6 @@ autocmd FileType tex nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:v
 autocmd FileType tex inoremap <C-s> <Esc>: silent exec '.!python ~/.config/nvim/save_screenshot.py "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>
 autocmd FileType tex nnoremap <C-s> : silent exec '.!python ~/.config/nvim/edit_screenshot.py "'.b:vimtex.root.'/figures/"'<CR><CR>:redraw!<CR>
 ]]
-
--- todo comments, https://github.com/folke/todo-comments.nvim
--- jump between TODOS
-vim.keymap.set("n", "]t", function()
-  require("todo-comments").jump_next()
-end, { desc = "Next todo comment" })
-
-vim.keymap.set("n", "[t", function()
-  require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
 
 -- Undotree, https://github.com/mbbill/undotree
 map('n', '<leader>tu', ':UndotreeToggle<CR>')          -- open/close

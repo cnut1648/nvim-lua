@@ -38,6 +38,9 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 - `:LspInfo` to test filetype LSP support
 
+- `:Navbuddy` to jump to different part of codes
+
+- `nvim-ufo` (using lsp as fold provider) currently only works for tex
 ### 2. Plugins
 
 - `[s/]s` jump to spell checker detected error; `zg` add current word to dictionary; `z=` select candidates; `1z=` select first candidate
@@ -115,3 +118,9 @@ Commands include
 - In insert mode first type figure filename then `<C-f>` to insert figures by inkscape; `<C-f>` in normal mode to edit figures. More details ref to [Gilles Castel](https://github.com/gillescastel/inkscape-figures). Must run `inks cape-figures watch` first.
 
 - In insert mode first take a screenshot, then type figure name, hit `<C-s>` and it will automatically append screenshot
+
+## Debug Tips
+
+In `.lua` file, use `print("msg")` to track if nvim indeed load the plugin (e.g. before and after `pcall` call).
+
+lsp config setup `on_attach` can only be called once, thus must put every attach in the same place (e.g. `navic` and `navbuddy`)

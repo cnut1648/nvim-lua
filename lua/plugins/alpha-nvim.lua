@@ -52,6 +52,5 @@ dashboard.section.buttons.val = {
 }
 
 dashboard.section.footer.val = footer()
--- dashboard.section.footer.val = require("alpha.fortune")()
 
 alpha.setup(dashboard.config)

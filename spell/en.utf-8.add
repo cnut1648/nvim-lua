@@ -171,3 +171,8 @@ trainset
 env
 unnormalized
 argmax
+bindsym
+config
+jxu
+tmp
+LSP
