@@ -201,6 +201,16 @@ lazy.setup({
 		},
   },
 
+  -- show cursor line and highlight
+  -- https://github.com/Tummetott/reticle.nvim/
+  {
+    'tummetott/reticle.nvim',
+    event = 'VeryLazy',
+    opts = {
+      disable_in_insert = true,
+    }
+  },
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
 --  ╰──────────────────────────────────────────────────────────╯
