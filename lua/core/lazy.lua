@@ -186,7 +186,6 @@ lazy.setup({
      ignore = {
        filetype = {"qf"} -- tex compile error window is not maximized
      }
-
    },
    config = function()
       vim.o.winwidth = 10

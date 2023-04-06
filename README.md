@@ -77,6 +77,10 @@ For def of keybinds, see [keymap.lua](lua/core/keymaps.lua).
 
 - Similar to `<C-s>`, use [inkscape-figures](https://github.com/cnut1648/inkscape-figures)'s `<C-f>` to create/update inkscape figures. Must run `inkscape-figures watch` beforehand.
 
+### Window Management
+
+- `<C-w>_` to maximize height of current focused windows; `<C-w>=` to equalize height of all vertical windows. For width it is automatically handled by `windows.nvim`
+
 ## Tex
 
 Ensure `texlab` is installed for LSP
@@ -124,3 +128,5 @@ Commands include
 In `.lua` file, use `print("msg")` to track if nvim indeed load the plugin (e.g. before and after `pcall` call).
 
 lsp config setup `on_attach` can only be called once, thus must put every attach in the same place (e.g. `navic` and `navbuddy`)
+
+To check filetype, run `:lua print(vim.bo.filetype)`
