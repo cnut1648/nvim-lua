@@ -17,7 +17,7 @@ nvim_treesitter.setup {
   ensure_installed = {
     -- 'bash', 'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'python',
     -- 'rust', 'typescript', 'vim', 'yaml',
-    'bash', 'vim', 'lua', 'python', 'html', 'css', 'json', 'yaml',
+    'bash', 'vim', 'lua', 'python', 'html', 'css', 'json', 'yaml', 'cpp',
   },
   ignore_install = { "latex" }, -- doesn't play well with vimtex
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -25,7 +25,14 @@ nvim_treesitter.setup {
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
-    disable = { "latex" }, -- doesn't play well with vimtex
+    -- disable for large file
+    disable = function(lang, buf)
+        local max_filesize = 1000 * 1024 -- 1000 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
   },
   rainbow = {
     enable = true,

@@ -133,9 +133,17 @@ lazy.setup({
   {'stevearc/dressing.nvim'},
 
   -- Tag viewer
-  -- use ctags in sys
-  -- https://github.com/preservim/tagbar
-  {'preservim/tagbar'},
+  -- https://github.com/stevearc/aerial.nvim
+  {
+    "stevearc/aerial.nvim",
+    opts = {
+      on_attach = function(bufnr)
+        -- Jump forwards/backwards with '{' and '}'
+        vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+        vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+      end
+    }
+  },
 
   -- UndoTree
   {'mbbill/undotree'},
@@ -173,6 +181,12 @@ lazy.setup({
    dependencies = {
       "anuvyklack/middleclass",
       "anuvyklack/animation.nvim"
+   },
+   opts = {
+     ignore = {
+       filetype = {"qf"} -- tex compile error window is not maximized
+     }
+
    },
    config = function()
       vim.o.winwidth = 10

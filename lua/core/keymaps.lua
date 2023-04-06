@@ -145,7 +145,7 @@ map('n', '<C-t>', ':Term<CR>', { noremap = true })  -- open
 map('t', '<Esc>', '<C-\\><C-n>')                    -- exit
 
 -- Tagbar
-map('n', '<leader>tt', ':TagbarToggle<CR>')          -- open/close
+map('n', '<leader>tt', ':AerialToggle<CR>')          -- open/close
 
 -- NvimTree
 map('n', '<leader>tn', ':NvimTreeToggle<CR>')            -- open/close
