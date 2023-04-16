@@ -88,7 +88,7 @@ lazy.setup({
   -- see :h bufferline-usage
   {
     'akinsho/bufferline.nvim',
-    version = "v3.*", dependencies = {'kyazdani42/nvim-web-devicons'},
+    dependencies = {'kyazdani42/nvim-web-devicons'},
     opts = {
         options = {
             -- pin tab
