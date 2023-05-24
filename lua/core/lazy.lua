@@ -428,6 +428,8 @@ lazy.setup({
         mdtohtml="tmpfile=\"/tmp/$(basename %outputfile%)\" ; pandoc --standalone %docroot% -o \"$tmpfile\"",
         mdtohtmlviewerlaunch = "live-server --quiet --browser=google-chrome-stable --open=%outputfile% --watch=%outputfile% --wait=800 /tmp",
         mdtohtmlviewerrefresh = "none",
+        textopdfbufferasstdin = true,
+        mdtohtmlbufferasstdin = true
       }
       vim.g.knap_settings = gknapsettings
     end
