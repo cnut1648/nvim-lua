@@ -69,7 +69,7 @@ map('n', '<M-S-->', '<C-W>-')
 map('n', '<M-S-+>', '<C-W>+')
 map('n', '<M-S-<>', '<C-W><')
 map('n', '<M-S->>', '<C-W>>')
-map('n', '<M-S-=>', ":lua require('nvim-window').pick()<CR>") -- select window by one key
+map('n', '<M-S-=>', "<cmd>lua require('nvim-window').pick()<CR>") -- select window by one key
 
 -- Map Esc to jk
 map('i', 'jk', '<Esc>')
@@ -126,7 +126,12 @@ map('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- auto correct spellchecker by first candidate (1z=)
 map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
-
+-- abbv
+vim.cmd [[
+inoreabbrev seperate separate
+inoreabbrev dont don't
+inoreabbrev cant can't
+]]
 -----------------------------------------------------------
 -----------------------------------------------------------
 -- ______ _             _
@@ -157,7 +162,7 @@ map('n', '<leader>k', ':RnvimrToggle<CR>')
 
 -- Comment https://github.com/numToStr/Comment.nvim
 -- IDE like comment
-map('n', '<C-/>', ":lua require('Comment.api').toggle.linewise.current()<CR>")
+map('n', '<C-/>', "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>")
 
 -- Telescope https://github.com/nvim-telescope/telescope.nvim
 -- in pwd
@@ -171,29 +176,6 @@ map('n', '<leader>ft', '<cmd>Telescope help_tags<cr>')
 map('n', '<leader>fs', '<cmd>Telescope search_history<cr>')
 -- recent files
 map('n', '<leader>fh', '<cmd>Telescope oldfiles<cr>')
-
--- Hop https://github.com/phaazon/hop.nvim
--- disable s
-map('', 's', '<NOP>')
-map('', 'S', '<NOP>')
--- did not override f/F/t/T due to dot repeat, eg df can't be repeated anymore
--- lowercase forward; uppercase backward
-map('', 'sf', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>")
-map('', 'sF', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>")
-map('', 'st', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>")
-map('', 'sT', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>")
--- lowercase for this buffer
--- uppercase for whole visible buffer
-map('', 'sw', "<cmd>:HopWord<CR>")
-map('', 'SW', "<cmd>:HopWordMW<CR>")
-map('', 'sb', "<cmd>:HopChar2<CR>")
-map('', 'SB', "<cmd>:HopChar2MW<CR>")
-map('', 'sp', "<cmd>:HopPattern<CR>")
-map('', 'SP', "<cmd>:HopPatternMW<CR>")
-map('', 'su', "<cmd>:HopVertical<CR>")
-map('', 'SU', "<cmd>:HopVerticalMW<CR>")
-map('', 'sl', "<cmd>:HopLineStart<CR>")
-map('', 'SL', "<cmd>:HopLineStartMW<CR>")
 
 -- hlslens https://github.com/kevinhwang91/nvim-hlslens
 map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]])
