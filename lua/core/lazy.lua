@@ -242,7 +242,7 @@ lazy.setup({
 --  ╰──────────────────────────────────────────────────────────╯
   -- show Indent line
   -- https://github.com/lukas-reineke/indent-blankline.nvim
-  {'lukas-reineke/indent-blankline.nvim'},
+  {'lukas-reineke/indent-blankline.nvim', main = "ibl", opts = {}},
 
   -- https://github.com/LudoPinelli/comment-box.nvim
   {"LudoPinelli/comment-box.nvim"},
