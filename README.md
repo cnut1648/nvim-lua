@@ -105,6 +105,8 @@ Commands include
 
 - `tsf` toggle fraction
 
+- `cse`/`csc` change name of env/command
+
 - `%` move within env, inline math, delimiters
 
 - `]]` and `[[` jump around `section`, `subsection`, `subsubsection`

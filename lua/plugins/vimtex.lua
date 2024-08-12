@@ -38,7 +38,7 @@ let g:vimtex_format_enabled = 1
 
 " make latexmk save auxiliary files (also pdf) to build/
 let g:vimtex_compiler_latexmk = {
-  \ 'build_dir' : './build',
+  \ 'out_dir' : './build',
   \ 'continuous' : 1,
   \ 'executable' : 'latexmk',
   \ 'hooks' : [],
@@ -77,5 +77,7 @@ let g:vimtex_quickfix_ignore_filters = [
       \ 'Package siunitx Warning: Detected the "physics" package:',
       \ 'Package hyperref Warning: Token not allowed in a PDF string',
       \ 'LaTex Font Warning: Font shape',
+      \ 'Package xeCJK Warning',
+      \ 'Package fontspec Warning',
       \]
 ]])

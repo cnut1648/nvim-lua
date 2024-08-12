@@ -174,15 +174,6 @@ lazy.setup({
     dependencies = { 'kyazdani42/nvim-web-devicons' },
   },
 
-  -- scroll bar w/ diagnostic
-  -- https://github.com/petertriho/nvim-scrollbar
-  {
-    "petertriho/nvim-scrollbar",
-    config = function()
-      require("scrollbar").setup{}
-    end
-  },
-
   -- manage window by only one key
   -- https://gitlab.com/yorickpeterse/nvim-window.git
   {"https://gitlab.com/yorickpeterse/nvim-window.git"},
@@ -242,7 +233,9 @@ lazy.setup({
 --  ╰──────────────────────────────────────────────────────────╯
   -- show Indent line
   -- https://github.com/lukas-reineke/indent-blankline.nvim
-  {'lukas-reineke/indent-blankline.nvim'},
+  {
+    'lukas-reineke/indent-blankline.nvim',
+  },
 
   -- https://github.com/LudoPinelli/comment-box.nvim
   {"LudoPinelli/comment-box.nvim"},
@@ -331,17 +324,17 @@ lazy.setup({
   {"cpea2506/relative-toggle.nvim"},
 
 
---  ╭──────────────────────────────────────────────────────────╮
---  │                       colorschema                        │
---  ╰──────────────────────────────────────────────────────────╯
+-- --  ╭──────────────────────────────────────────────────────────╮
+-- --  │                       colorschema                        │
+-- --  ╰──────────────────────────────────────────────────────────╯
   {'navarasu/onedark.nvim'},
   {'tanvirtin/monokai.nvim'},
   { "catppuccin/nvim", name = "catppuccin" },
   { "rebelot/kanagawa.nvim" },
-
---  ╭──────────────────────────────────────────────────────────╮
---  │                          search                          │
---  ╰──────────────────────────────────────────────────────────╯
+--
+-- --  ╭──────────────────────────────────────────────────────────╮
+-- --  │                          search                          │
+-- --  ╰──────────────────────────────────────────────────────────╯
   -- search integrate with fzf and fd
   -- https://github.com/nvim-telescope/telescope.nvim#pickers
   {

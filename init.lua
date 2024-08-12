@@ -8,6 +8,8 @@
 if vim.g.vscode then
   print("vscode")
   vim.opt.clipboard = 'unnamedplus'         -- Copy/paste to system clipboard
+  vim.api.nvim_set_keymap("n", "<C-C>", 'V"+y')
+  vim.api.nvim_set_keymap("v", "<C-C>", '"+y')
 else
   require('core/lazy')
   require('core/autocmds')

@@ -157,11 +157,9 @@ snippet ali "Align" bA
 endsnippet
 
 snippet arrow "witharrow" bA
-\[
-\begin{WithArrows}
+\begin{DispWithArrows*}
     ${1:${VISUAL}}
-\end{WithArrows}
-\]
+\end{DispWithArrows*}
 endsnippet
 
 context "math()"
@@ -389,12 +387,12 @@ snippet nabl "nabla" iA
 endsnippet
 
 context "math()"
-snippet ww "omega" iA
+snippet www "omega" iA
 \omega
 endsnippet
 
 context "math()"
-snippet WW "omega" iA
+snippet WWW "omega" iA
 \Omega
 endsnippet
 
@@ -489,7 +487,7 @@ endsnippet
 
 priority 100000
 context "math()"
-snippet '(?<!\\)(sin|mu|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+snippet '(?<!\\)(sin|mu|cos|arccot|cot|csc|ln|log|det|exp|star|perp)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -825,6 +823,7 @@ snippet '([A-Za-z}])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
+
 context "math()"
 snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
@@ -849,6 +848,13 @@ priority 2000
 context "math()"
 snippet "\b([a-zA-Z}])u([ijkn])" "xi" rwA
 `!p snip.rv=match.group(1)`_{`!p snip.rv=match.group(2)`$1}$0
+endsnippet
+
+# bn12 => \binom{1}{2}
+priority 1000000
+context "math()"
+snippet 'bn_(\d)(\d)' "binom" wrA
+\binom{`!p snip.rv = match.group(1)`}{`!p snip.rv = match.group(2)`}
 endsnippet
 
 # auih => a_{i-1}
