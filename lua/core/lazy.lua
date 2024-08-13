@@ -228,11 +228,6 @@ lazy.setup({
     }
   },
 
-  -- rainbow delimiters
-  -- https://github.com/HiPhish/rainbow-delimiters.nvim
-  {
-    "HiPhish/rainbow-delimiters.nvim"
-  },
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
@@ -243,6 +238,12 @@ lazy.setup({
 
   -- https://github.com/LudoPinelli/comment-box.nvim
   {"LudoPinelli/comment-box.nvim"},
+
+  -- rainbow delimiters
+  -- https://github.com/HiPhish/rainbow-delimiters.nvim
+  {
+    "HiPhish/rainbow-delimiters.nvim"
+  },
 
   -- highlight all occurences of selection
   {'RRethy/vim-illuminate'},
@@ -338,7 +339,7 @@ lazy.setup({
   -- search integrate with fzf and fd
   -- https://github.com/nvim-telescope/telescope.nvim#pickers
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
+    'nvim-telescope/telescope.nvim',
     dependencies = {'nvim-lua/plenary.nvim'}
   },
 
