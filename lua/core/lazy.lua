@@ -228,21 +228,21 @@ lazy.setup({
     }
   },
 
+  -- rainbow delimiters
+  -- https://github.com/HiPhish/rainbow-delimiters.nvim
+  {
+    "HiPhish/rainbow-delimiters.nvim"
+  },
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                        prettifier                        │
 --  ╰──────────────────────────────────────────────────────────╯
   -- show Indent line
   -- https://github.com/lukas-reineke/indent-blankline.nvim
-  {
-    'lukas-reineke/indent-blankline.nvim',
-  },
+  {'lukas-reineke/indent-blankline.nvim', main = "ibl", opts = {}},
 
   -- https://github.com/LudoPinelli/comment-box.nvim
   {"LudoPinelli/comment-box.nvim"},
-
-  -- Rainbow pairs
-  -- https://github.com/p00f/nvim-ts-rainbow
-  {'p00f/nvim-ts-rainbow'},
 
   -- highlight all occurences of selection
   {'RRethy/vim-illuminate'},
@@ -324,9 +324,9 @@ lazy.setup({
   {"cpea2506/relative-toggle.nvim"},
 
 
--- --  ╭──────────────────────────────────────────────────────────╮
--- --  │                       colorschema                        │
--- --  ╰──────────────────────────────────────────────────────────╯
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                       colorschema                        │
+--  ╰──────────────────────────────────────────────────────────╯
   {'navarasu/onedark.nvim'},
   {'tanvirtin/monokai.nvim'},
   { "catppuccin/nvim", name = "catppuccin" },
@@ -338,7 +338,7 @@ lazy.setup({
   -- search integrate with fzf and fd
   -- https://github.com/nvim-telescope/telescope.nvim#pickers
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = {'nvim-lua/plenary.nvim'}
   },
 

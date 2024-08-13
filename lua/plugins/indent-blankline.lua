@@ -35,5 +35,5 @@ indent_blankline.setup {
       'quickfix',
       'prompt',
     }
-  }
+  },
 }
