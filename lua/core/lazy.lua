@@ -67,10 +67,10 @@ lazy.setup({
 --  │                     statusline                           │
 --  ╰──────────────────────────────────────────────────────────╯
   -- Statusline
-  -- fork of original https://github.com/feline-nvim/feline.nvim
-  -- https://github.com/freddiehaddad/feline.nvim
+  -- after feline is discontinued, switch to
+  -- https://github.com/nvim-lualine/lualine.nvim
   {
-    "freddiehaddad/feline.nvim",
+    "nvim-lualine/lualine.nvim",
     dependencies = { 'kyazdani42/nvim-web-devicons' },
   },
 
@@ -78,7 +78,7 @@ lazy.setup({
   -- https://github.com/SmiteshP/nvim-navic
   {
     "SmiteshP/nvim-navic",
-    dependencies = {"neovim/nvim-lspconfig", "freddiehaddad/feline.nvim"},
+    dependencies = {"neovim/nvim-lspconfig", "nvim-lualine/lualine.nvim"},
   },
 
   -- buffer management

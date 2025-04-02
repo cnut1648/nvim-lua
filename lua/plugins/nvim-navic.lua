@@ -21,11 +21,6 @@ if not navbuddy_status_ok then
 end
 local actions = require("nvim-navbuddy.actions")
 
-local feline_status_ok, feline = pcall(require, 'feline')
-if not navic_status_ok then
-  return
-end
-
 -- must attach to lsp server
 local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
 for _, ls in ipairs(language_servers) do
